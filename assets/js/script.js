@@ -225,6 +225,14 @@ function updateTasks(from) {
             tasks[i].important = currentIInput[i].checked;
         }
     }
+    // for (let i = 0; i < tasks.length - modifier; i++) {
+    //     if (tasks[i].completed != currentCInput[i].checked) {
+    //         tasks[i].completed = currentCInput[i].checked;
+    //     }
+    //     if (tasks[i].important != currentIInput[i].checked) {
+    //         tasks[i].important = currentIInput[i].checked;
+    //     }
+    // }
 
 
     //? Store new values to localStorage
