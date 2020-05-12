@@ -31,8 +31,8 @@
                         <label class="category-container">
                             <img src="assets/img/archive.svg" height="25" width="25" id="allIMG">
                             <span>All</span>
-                            <input type="checkbox" id="categoryAll" name="main-category"/>
-                            <span class="checkmark"></span>
+                            <input type="radio" id="categoryAll" name="main-category"/>
+                            <!-- <span class="checkmark"></span> -->
                         </label>
                         <label class="category-container">
                             <img src="assets/img/warning.svg" height="25" width="25" id="impIMG">
@@ -49,15 +49,7 @@
     
                     </div>
                     <ul id="userLists-container">
-                        <li>
-                            <label class="container__custom__checkbox">List 1
-                                <input type="radio" id="end_date_checkbox" name="end_date"/>
-                                <!-- <span class="checkmark"></span> -->
-                            </label>
-                        </li>
-                        <li>
-                            List 2
-                        </li>
+                        
                     </ul>
                     <div id="listModal-container" class="listModal-container hidden">
                         <input id="listModal" type="text" maxlength="25" autofocus>
@@ -99,7 +91,6 @@
                 </div>
                 <select id="customList" name="remind_time" class="modal-input">
                     <option disabled selected>Select a custom list</option>
-                    <!-- <option value=300000 >5 minutes before</option> -->
                 </select>
                 <select id="taskColor" name="remind_time" class="modal-input">
                     <option disabled selected>Select a color</option>

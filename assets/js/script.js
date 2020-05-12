@@ -288,18 +288,12 @@ function saveList(list) {
     var newList = (list.parentNode.parentNode.querySelector("input").value);
 
     userLists.push(newList);
-    
-    // storeTasks();
-    // updateTasks(from);
-    // placeTask();
-    // cancelForm();
 
-    // storeList();
+    storeList();
     // updateList("modal");
+    selectUserLists();
     placeList();
     listModalPopDown();
-
-
 }
 
 function listModalPopUp() {
@@ -313,97 +307,72 @@ function listModalPopDown() {
 }
 
 function storeList() {
-    var JSONTasks = JSON.stringify(userLists);
-    localStorage.setItem("userLists", JSONTasks);
+    var JSONLists = JSON.stringify(userLists);
+    localStorage.setItem("userLists", JSONLists);
     console.log("lists stored");
+    console.log(JSONLists);
 }
-/*
+
 function placeList() {
 
-    //? Obtain tasks from localStorage
+    // Obtain tasks from localStorage
     var listsJSON = JSON.parse(localStorage.getItem("userLists"));
 
-    if (listsJSON === null) { //? Check if there is no localStorage
+    if (listsJSON === null) { // Check if there is no localStorage
         userLists = [];
     } else {
         userLists = listsJSON;
     };
 
-    var oldLists = document.querySelectorAll("#userLists-container li"); //? Select all li (tasks) currenty in display
-    var listsUl = document.querySelector("#userLists-container"); //? Select the "tasks display"
+    var oldLists = document.querySelectorAll("#userLists-container li"); // Select all li (tasks) currenty in display
+    var listsUl = document.querySelector("#userLists-container"); // Select the "tasks display"
 
-    //? Set tasksDisplay as the localStorage tasks
+    // Set tasksDisplay as the localStorage tasks
     var listsDisplay = userLists;
 
-    //? Remove old values in the tasks display
+    // Remove old values in the tasks display
     oldLists.forEach(element => {
         element.remove();
     })
 
-    //? Place new updated tasks in display
+    // Place new updated tasks in display
     var idNumber = 0;
     var idNumber2 = 0;
     listsDisplay.forEach(element => {
-function placeList() {
-
-    //? Obtain lists from localStorage
-    var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
-
-    if (listsJSON === null) { //? Check if there is no localStorage
-        tasks = [];
-    } else {
-        tasks = listsJSON;
-    };
-
-    var oldEvents = document.querySelectorAll("#tasks li"); //? Select all li (tasks) currenty in display
-    var tasksUl = document.querySelector("#tasksUl"); //? Select the "tasks display"
-
-    //? Set tasksDisplay as the localStorage tasks
-    var tasksDisplay = tasks;
-
-    //? Remove old values in the tasks display
-    oldEvents.forEach(element => {
-        element.remove();
-    })
-
-    //? Place new updated tasks in display
-    var idNumber = 0;
-    var idNumber2 = 0;
-    tasksDisplay.forEach(element => {
         var li = document.createElement("li");
-        var l
-*/
-// function updateList(from) {
+        var label = document.createElement("label");
+        var input = document.createElement("input");
 
-//     //? Update localStorage with new values
-//     var listsJSON = JSON.parse(localStorage.getItem("userLists"));
-//     if (listsJSON === null) {
-//         userLists = [];
-//     } else {
-//         userLists = listsJSON;
-//     };
+        li.classList.add("userLists")
+        label.innerHTML = element;
+        input.type = "radio";
+        input.name = "userList";
+        input.value = element;
 
-//     var modifier = 0;
+        label.appendChild(input);
+        li.appendChild(label);
+        listsUl.appendChild(li);
+    });
+}
 
-//     from == "modal" ? modifier = 1 : modifier = 0;
+function selectUserLists(){
+    var listSelector = document.querySelector("#customList");
+    var oldLists = listSelector.querySelectorAll("option"); //? Select all li (tasks) currenty in display
+    
+    //? Remove old values in the lists selector, except first one (default)
+    for(var i = 1; i<oldLists.length; i++){
+        oldLists[i].remove();
+    }
 
-//     // //? Obtain current values for checkbox from completed and important
-//     // var currentCInput = document.querySelectorAll("#tasks .completedInput");
-//     // var currentIInput = document.querySelectorAll("#tasks .importantInput");
+    userLists.forEach(element=>{
+        var option = document.createElement("option");
+        option.value = element;
+        option.textContent = element;
 
-//     //? Update tasks values with current values
-//     for (let i = 0; i < tasks.length - modifier; i++) {
-//         if (tasks[i].completed != currentCInput[i].checked) {
-//             tasks[i].completed = currentCInput[i].checked;
-//         }
-//         if (tasks[i].important != currentIInput[i].checked) {
-//             tasks[i].important = currentIInput[i].checked;
-//         }
-//     }
-
-
-//     //? Store new values to localStorage
-//     storeTasks();
-// }
+        listSelector.appendChild(option);
+    })
+}
 
 placeTask();
+placeList();
+selectUserLists();

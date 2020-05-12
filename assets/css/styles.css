@@ -199,6 +199,18 @@ outline: none;
     font-weight: 800;
 }
 
+.userLists{
+    margin-bottom: 8px;
+}
+
+.userLists label{
+    cursor: pointer;
+}
+
+.userLists label{
+    cursor: pointer;
+}
+
 #tasks{
     box-sizing: border-box;
     border-left: 1px solid;
