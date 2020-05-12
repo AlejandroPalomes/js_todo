@@ -103,12 +103,16 @@ function placeTask() {
     var oldEvents = document.querySelectorAll("#tasks li"); //? Select all li (tasks) currenty in display
     var tasksUl = document.querySelector("#tasksUl"); //? Select the "tasks display"
 
-    // var radial = document.querySelectorAll("input[type=radio]");
-    // var allSection = document.querySelector("#categoryAll").parentNode;
+    var activeList;
+    
+    document.querySelectorAll("input[type='radio']").forEach(element => {
+        if(element.checked){
+            activeList = element.parentNode.textContent;
+        }
+    })
+
     var allInput = document.querySelector("#categoryAll");
-    // var importantSection = document.querySelector("#categoryImportant").parentNode;
     var importantInput = document.querySelector("#categoryImportant");
-    // var completedSection = document.querySelector("#categoryCompleted").parentNode;
     var completedInput = document.querySelector("#categoryCompleted");
 
     changeCategory();
@@ -123,7 +127,11 @@ function placeTask() {
         console.log("completed selected")
         var tasksDisplay = tasks.filter(task => task.completed == true);
     }else{
-        console.log("other selected")
+        console.log("other selected");
+        // var tasksDisplay = checkUserList();
+        var tasksDisplay = tasks.filter(task => task.customList == activeList);
+        console.log(activeList)
+        console.log(tasksDisplay)
     }
 
     //? Set tasksDisplay as the localStorage tasks
@@ -291,7 +299,7 @@ function storeTasks() {
 
 function changeCategory(category) {
 
-    var radial = document.querySelectorAll("input[type=radio]");
+    // var radial = document.querySelectorAll("input[type=radio]");
     var allSection = document.querySelector("#categoryAll").parentNode;
     var allInput = document.querySelector("#categoryAll");
     var importantSection = document.querySelector("#categoryImportant").parentNode;
@@ -393,6 +401,7 @@ function placeList() {
         input.type = "radio";
         input.name = "section";
         input.value = element;
+        input.classList.add("testingRadio");
 
         label.appendChild(input);
         li.appendChild(label);
@@ -418,24 +427,6 @@ function selectUserLists(){
     })
 }
 
-// function checkSection(){
-// var radial = document.querySelectorAll("input[type=radio]");
-// var allSection = document.querySelector("#categoryAll").parentNode;
-// var allInput = document.querySelector("#categoryAll");
-// var importantSection = document.querySelector("#categoryImportant").parentNode;
-// var importantInput = document.querySelector("#categoryImportant");
-// var completedSection = document.querySelector("#categoryCompleted").parentNode;
-// var completedInput = document.querySelector("#categoryCompleted");
-// console.log(radial);
-
-// if(allInput.checked){
-//     console.log("all selected")
-// }else if(importantInput.checked){
-//     console.log("important selected")
-// }else if(completedInput.checked){
-//     console.log("completed selected")
-// }
-// }
 
 placeTask();
 placeList();

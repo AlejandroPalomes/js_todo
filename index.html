@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS ToDo List</title>
     <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="d-flex ai-c jc-c">
     <div class="todoList-container">
         <header class="d-flex jc-sb ai-c">
@@ -21,9 +27,9 @@
             <div class="dateSector d-flex">
                 <span id="todayWeekday"></span>
             </div>
-    
+
         </header>
-    
+
         <div id="todoList-Tasks" class="d-flex">
             <div id="todoList-general" class="d-flex f-col jc-sb">
                 <div>
@@ -31,25 +37,24 @@
                         <label class="category-container">
                             <img src="assets/img/archive.svg" height="25" width="25" id="allIMG">
                             <span>All</span>
-                            <input type="radio" id="categoryAll" name="section" checked="checked"/>
+                            <input class="testingRadio" type="radio" id="categoryAll" name="section" checked="checked" />
                             <!-- <span class="checkmark"></span> -->
                         </label>
                         <label class="category-container">
                             <img src="assets/img/warning.svg" height="25" width="25" id="impIMG">
                             <span>Important</span>
-                            <input type="radio" id="categoryImportant" name="section"/>
+                            <input class="testingRadio" type="radio" id="categoryImportant" name="section" />
                             <!-- <span class="checkmark"></span> -->
                         </label>
                         <label class="category-container">
                             <img src="assets/img/check.svg" height="25" width="25" id="comIMG">
                             <span>Completed</span>
-                            <input type="radio" id="categoryCompleted" name="section"/>
+                            <input class="testingRadio" type="radio" id="categoryCompleted" name="section" />
                             <!-- <span class="checkmark"></span> -->
                         </label>
-    
+
                     </div>
                     <ul id="userLists-container">
-                        
                     </ul>
                     <div id="listModal-container" class="listModal-container hidden">
                         <input id="listModal" type="text" maxlength="25" autofocus>
@@ -62,30 +67,24 @@
             <div id="tasks" class="d-flex f-col jc-sb">
                 <span class="d-flex jc-c">Tasks</span>
                 <ul id="tasksUl" class="d-flex f-col">
-                    <!-- <li>
-                        <label class="container__custom__checkbox">TASK 1
-                            <input type="checkbox" id="end_date_checkbox" name="end_date"/>
-                            <span class="checkmark"></span>
-                        </label>
-                    </li> -->
                 </ul>
                 <button id="addTask" class="createElement">Add task</button>
             </div>
-    
         </div>
     </div>
     <div id="modal" class="hidden d-flex jc-c ai-c modal-container">
         <div class=" d-flex f-col modal-content ai-c ">
             <form class="d-flex f-col">
-                <input class="modal-input" type="text" id="taskTitle" name="title" placeholder="Title" >
-                <textarea class="modal-input" name="description" id="taskDescription" placeholder="Description"></textarea>
+                <input class="modal-input" type="text" id="taskTitle" name="title" placeholder="Title">
+                <textarea class="modal-input" name="description" id="taskDescription"
+                    placeholder="Description"></textarea>
                 <div class="checkbox-options d-flex ai-c">
                     <label class="container__custom__checkbox">Completed
-                        <input type="checkbox" id="completedCheck" name="end_date"/>
+                        <input type="checkbox" id="completedCheck" name="end_date" />
                         <span class="checkmark"></span>
                     </label>
                     <label class="container__custom__checkbox">Important
-                        <input type="checkbox" id="importantCheck" name="end_date"/>
+                        <input type="checkbox" id="importantCheck" name="end_date" />
                         <span class="checkmark"></span>
                     </label>
                 </div>
@@ -114,4 +113,5 @@
     <script src="assets/js/task.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>
