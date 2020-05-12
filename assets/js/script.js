@@ -47,16 +47,20 @@ function clickListener(event) {
 }
 
 function hoverListener(event) {
-    if (event.target.parentNode.classList.contains("important-hover")) {
-        var buttonImportant = event.target.parentNode.querySelector(".importantCheckMark");
-        var buttonDelete = event.target.parentNode.querySelector(".deleteTask");
-        buttonImportant.classList.toggle("hidden");
-        buttonDelete.classList.toggle("hidden");
-    } else if (event.target.parentNode.parentNode.classList.contains("important-hover")) {
-        var buttonImportant = event.target.parentNode.parentNode.querySelector(".importantCheckMark");
-        var buttonDelete = event.target.parentNode.parentNode.querySelector(".deleteTask");
-        buttonImportant.classList.toggle("hidden");
-        buttonDelete.classList.toggle("hidden");
+    
+    if(event.target != document.querySelector("body")){
+        console.log("running shit")
+        if (event.target.parentNode.classList.contains("important-hover")) {
+            var buttonImportant = event.target.parentNode.querySelector(".importantCheckMark");
+            var buttonDelete = event.target.parentNode.querySelector(".deleteTask");
+            buttonImportant.classList.toggle("hidden");
+            buttonDelete.classList.toggle("hidden");
+        } else if (event.target.parentNode.parentNode.classList.contains("important-hover")) {
+            var buttonImportant = event.target.parentNode.parentNode.querySelector(".importantCheckMark");
+            var buttonDelete = event.target.parentNode.parentNode.querySelector(".deleteTask");
+            buttonImportant.classList.toggle("hidden");
+            buttonDelete.classList.toggle("hidden");
+        }
     }
 }
 
