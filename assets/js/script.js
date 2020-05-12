@@ -43,6 +43,7 @@ function clickListener(event) {
     if (event.target.id == "cancelList") listModalPopDown();
     if (event.target.id == "confirmList") saveList(event.target);
     if (event.target.name == "section") placeTask();
+    if (event.target.classList.contains("deleteList")) removeList(event.target.parentNode.querySelector("label"));
 }
 
 function hoverListener(event) {
@@ -61,7 +62,7 @@ function hoverListener(event) {
 
         if(event.target.parentNode.classList.contains("userLists")){
             console.log("on list element!")
-            // document.querySelector("#deleteList").classList.toggle("hidden");
+            event.target.parentNode.querySelector(".deleteList").classList.toggle("hidden");
         }
     }
 }
@@ -253,10 +254,6 @@ function updateTasks(from) {
         tasks = tasksJSON;
     };
 
-    var modifier = 0;
-
-    from == "modal" ? modifier = 1 : modifier = 0;
-
     //? Obtain current values for checkbox from completed and important
     var currentCInput = document.querySelectorAll(".taskLabel");
     // var currentIInput = document.querySelectorAll(".importantCheckMark");
@@ -284,14 +281,6 @@ function updateTasks(from) {
             console.log("--------------------")
         });
     });
-    // for (let i = 0; i < tasks.length - modifier; i++) {
-    //     if (tasks[i].completed != currentCInput[i].checked) {
-    //         tasks[i].completed = currentCInput[i].checked;
-    //     }
-    //     if (tasks[i].important != currentIInput[i].checked) {
-    //         tasks[i].important = currentIInput[i].checked;
-    //     }
-    // }
 
 
     //? Store new values to localStorage
@@ -432,6 +421,7 @@ function placeList() {
         var li = document.createElement("li");
         var label = document.createElement("label");
         var input = document.createElement("input");
+        var deleteList = document.createElement("img");
 
         li.classList.add("userLists")
         label.innerHTML = element;
@@ -440,9 +430,16 @@ function placeList() {
         input.name = "section";
         input.value = element;
         input.classList.add("testingRadio");
+        
+        deleteList.src = "assets/img/clear.svg";
+        deleteList.classList.add("deleteList");
+        deleteList.classList.add("hidden");
+        deleteList.height = "12";
+        deleteList.width = "12";
 
         label.appendChild(input);
         li.appendChild(label);
+        li.appendChild(deleteList)
         listsUl.appendChild(li);
     });
 }
@@ -463,6 +460,31 @@ function selectUserLists(){
 
         listSelector.appendChild(option);
     })
+}
+
+function removeList(element) {
+
+    var listsJSON = JSON.parse(localStorage.getItem("userLists"));
+
+    if (listsJSON === null) {
+        userLists = [];
+    } else {
+        userLists = listsJSON;
+    };
+
+    let index;
+    userLists.forEach(list => {
+        if (list == element.textContent) {
+            index = userLists.indexOf(list);
+        }
+    })
+
+    if (index > -1) {
+        userLists.splice(index, 1);
+    }
+
+    storeList();
+    placeList();
 }
 
 

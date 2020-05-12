@@ -206,13 +206,14 @@ outline: none;
 
 .userLists{
     margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .userLists label{
     cursor: pointer;
     display: inline-block;
     width: 100%;
-    border: 1px solid yellow;
 }
 
 .userLists input{
@@ -294,7 +295,7 @@ outline: none;
     left: 0;
 }
 
-.deleteTask{
+.deleteTask, .deleteList{
     margin-top: 5px;
     margin-left: 10px;
     cursor: pointer;
