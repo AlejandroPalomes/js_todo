@@ -22,16 +22,17 @@ document.addEventListener("mouseover", hoverListener);
 document.addEventListener("mouseout", hoverListener);
 
 function clickListener(event) {
+    console.log(event.target)
     if (event.target.id == "addTask") document.querySelector("#modal").classList.toggle("hidden");
     if (event.target.id == "cancel_btn" || event.target.id == "modal") cancelForm();
     if (event.target.id == "save_btn") generateTask("modal");
-    if (event.target.name == "main-category") changeCategory(event.target);
+    //if (event.target.name == "main-category") changeCategory(event.target);
     if (event.target.classList.contains("deleteTask")) removeTask(event.target.parentNode.querySelector("label:first-child"));
-    if (event.target.parentNode.parentNode.querySelector(".importantCheckMark")) {
+    if (event.target.classList.contains("importantInput")) {
         if (!event.target.parentNode.parentNode.querySelector(".importantInput").checked) {
-            event.target.parentNode.parentNode.querySelector(".taskLabel").style.fontWeight = "200"
+            event.target.parentNode.parentNode.querySelector(".taskLabel").style.fontWeight = "200";
         } else {
-            event.target.parentNode.parentNode.querySelector(".taskLabel").style.fontWeight = "800"
+            event.target.parentNode.parentNode.querySelector(".taskLabel").style.fontWeight = "800";
         }
         updateTasks();
     }
@@ -41,6 +42,9 @@ function clickListener(event) {
     };
     if (event.target.id == "cancelList") listModalPopDown();
     if (event.target.id == "confirmList") saveList(event.target);
+    if (event.target.name == "section") placeTask();
+
+    // checkSection(event.target);
 }
 
 function hoverListener(event) {
@@ -60,8 +64,6 @@ function hoverListener(event) {
 function cancelForm() {
     document.querySelector("#modal").classList.toggle("hidden");
     document.querySelector(".modal-content form").reset();
-    // document.querySelector("#completedCheck").checked = false;
-    // document.querySelector("#importantCheck").checked = false;
 }
 
 function generateTask(from) {
@@ -69,8 +71,8 @@ function generateTask(from) {
     var description = document.querySelector("#taskDescription").value;
     var completedCheck = document.querySelector("#completedCheck").checked;
     var importantCheck = document.querySelector("#importantCheck").checked;
-    var customList = document.querySelector("#customList").selected;
-    var color = document.querySelector("#taskColor").selected;
+    var customList = document.querySelector("#customList").value;
+    var color = document.querySelector("#taskColor").value;
 
     if (title && description) {
         var newTask = new Task(title, description, completedCheck, importantCheck, customList, color);
@@ -78,12 +80,6 @@ function generateTask(from) {
         tasks.push(newTask);
         console.log(tasks);
 
-        // if (completedCheck) {
-        //     completedList.push(newTask);
-        // }
-        // if (importantCheck) {
-        //     completedList.push(newTask);
-        // }
         storeTasks();
         updateTasks(from);
         placeTask();
@@ -93,6 +89,8 @@ function generateTask(from) {
 
 
 function placeTask() {
+
+    console.log("placeTask executed")
 
     //? Obtain lists from localStorage
     var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
@@ -106,8 +104,31 @@ function placeTask() {
     var oldEvents = document.querySelectorAll("#tasks li"); //? Select all li (tasks) currenty in display
     var tasksUl = document.querySelector("#tasksUl"); //? Select the "tasks display"
 
+    var radial = document.querySelectorAll("input[type=radio]");
+    var allSection = document.querySelector("#categoryAll").parentNode;
+    var allInput = document.querySelector("#categoryAll");
+    var importantSection = document.querySelector("#categoryImportant").parentNode;
+    var importantInput = document.querySelector("#categoryImportant");
+    var completedSection = document.querySelector("#categoryCompleted").parentNode;
+    var completedInput = document.querySelector("#categoryCompleted");
+
+    changeCategory();
+
+    if(allInput.checked){
+        console.log("all selected");
+        var tasksDisplay = tasks;
+    }else if(importantInput.checked){
+        console.log("important selected")
+        var tasksDisplay = tasks.filter(task => task.important == true);
+    }else if(completedInput.checked){
+        console.log("completed selected")
+        var tasksDisplay = tasks.filter(task => task.completed == true);
+    }else{
+        console.log("other selected")
+    }
+
     //? Set tasksDisplay as the localStorage tasks
-    var tasksDisplay = tasks;
+    // var tasksDisplay = tasks;
 
     //? Remove old values in the tasks display
     oldEvents.forEach(element => {
@@ -212,7 +233,6 @@ function updateTasks(from) {
 
 function removeTask(element) {
 
-    console.log(tasks);
     updateTasks();
 
     var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
@@ -235,7 +255,6 @@ function removeTask(element) {
     }
 
     // array = [2, 9]
-    console.log(tasks);
 
     storeTasks();
     placeTask();
@@ -249,39 +268,42 @@ function storeTasks() {
 
 function changeCategory(category) {
 
-    var allCategory = document.querySelector("#categoryAll");
-    var importantCategory = document.querySelector("#categoryImportant");
-    var completedCategory = document.querySelector("#categoryCompleted");
+    var radial = document.querySelectorAll("input[type=radio]");
+    var allSection = document.querySelector("#categoryAll").parentNode;
+    var allInput = document.querySelector("#categoryAll");
+    var importantSection = document.querySelector("#categoryImportant").parentNode;
+    var importantInput = document.querySelector("#categoryImportant");
+    var completedSection = document.querySelector("#categoryCompleted").parentNode;
+    var completedInput = document.querySelector("#categoryCompleted");
     var allIMG = document.querySelector("#allIMG");
     var impIMG = document.querySelector("#impIMG");
     var comIMG = document.querySelector("#comIMG");
 
-    var allContainer = allCategory.parentElement;
-    var importantContainer = importantCategory.parentElement;
-    var completedContainer = completedCategory.parentElement;
 
-    if (category.id == "categoryAll") {
-        allContainer.style.background = "rgb(253, 158, 43)";
-        allIMG.src = "assets/img/archive2.svg"
-        importantContainer.style.background = "rgba(255, 255, 255, 0.15)";
-        impIMG.src = "assets/img/warning.svg"
-        completedContainer.style.background = "rgba(255, 255, 255, 0.15)";
-        comIMG.src = "assets/img/check.svg"
-    } else if (category.id == "categoryImportant") {
-        allContainer.style.background = "rgba(255, 255, 255, 0.15)";
+    if(allInput.checked){
+        allSection.style.background = "rgb(253, 158, 43)";
+        allIMG.src = "assets/img/archive2.svg";
+    }else{
+        allSection.style.background = "rgba(255, 255, 255, 0.15)";
         allIMG.src = "assets/img/archive.svg"
-        importantContainer.style.background = "rgb(252, 71, 65)";
-        impIMG.src = "assets/img/warning2.svg"
-        completedContainer.style.background = "rgba(255, 255, 255, 0.15)";
-        comIMG.src = "assets/img/check.svg"
-    } else if (category.id == "categoryCompleted") {
-        allContainer.style.background = "rgba(255, 255, 255, 0.15)";
-        allIMG.src = "assets/img/archive.svg"
-        importantContainer.style.background = "rgba(255, 255, 255, 0.15)";
-        impIMG.src = "assets/img/warning.svg"
-        completedContainer.style.background = "rgb(28, 135, 251)";
-        comIMG.src = "assets/img/check2.svg"
     }
+    
+    if(importantInput.checked){
+        importantSection.style.background = "rgb(252, 71, 65)";
+        impIMG.src = "assets/img/warning2.svg";
+    }else{
+        importantSection.style.background = "rgba(255, 255, 255, 0.15)";
+        impIMG.src = "assets/img/warning.svg";
+    }
+    
+    if(completedInput.checked){
+        completedSection.style.background = "rgb(28, 135, 251)";
+        comIMG.src = "assets/img/check2.svg"
+    }else{
+        completedSection.style.background = "rgba(255, 255, 255, 0.15)";
+        comIMG.src = "assets/img/check.svg"
+    }
+
 }
 
 function saveList(list) {
@@ -346,7 +368,7 @@ function placeList() {
         li.classList.add("userLists")
         label.innerHTML = element;
         input.type = "radio";
-        input.name = "userList";
+        input.name = "section";
         input.value = element;
 
         label.appendChild(input);
@@ -358,7 +380,7 @@ function placeList() {
 function selectUserLists(){
     var listSelector = document.querySelector("#customList");
     var oldLists = listSelector.querySelectorAll("option"); //? Select all li (tasks) currenty in display
-    
+
     //? Remove old values in the lists selector, except first one (default)
     for(var i = 1; i<oldLists.length; i++){
         oldLists[i].remove();
@@ -372,6 +394,25 @@ function selectUserLists(){
         listSelector.appendChild(option);
     })
 }
+
+// function checkSection(){
+// var radial = document.querySelectorAll("input[type=radio]");
+// var allSection = document.querySelector("#categoryAll").parentNode;
+// var allInput = document.querySelector("#categoryAll");
+// var importantSection = document.querySelector("#categoryImportant").parentNode;
+// var importantInput = document.querySelector("#categoryImportant");
+// var completedSection = document.querySelector("#categoryCompleted").parentNode;
+// var completedInput = document.querySelector("#categoryCompleted");
+// console.log(radial);
+
+// if(allInput.checked){
+//     console.log("all selected")
+// }else if(importantInput.checked){
+//     console.log("important selected")
+// }else if(completedInput.checked){
+//     console.log("completed selected")
+// }
+// }
 
 placeTask();
 placeList();

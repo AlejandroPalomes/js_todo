@@ -207,8 +207,8 @@ outline: none;
     cursor: pointer;
 }
 
-.userLists label{
-    cursor: pointer;
+.userLists input{
+    opacity: 0;
 }
 
 #tasks{
