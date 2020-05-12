@@ -122,7 +122,7 @@ function placeTask() {
     if(allInput.checked){
         console.log("all selected");
         var tasksDisplay = tasks;
-        sectionTitle.textContent = "Tasks";
+        sectionTitle.textContent = "All Tasks";
     }else if(importantInput.checked){
         console.log("important selected")
         var tasksDisplay = tasks.filter(task => task.important == true);
@@ -197,6 +197,31 @@ function placeTask() {
             label.style.fontWeight = "800"
         } else {
             label.style.fontWeight = "200"
+        }
+
+        switch(element.color){
+            case "purple":
+                label.style.color = "rgb(95, 97, 227)"
+                break;
+            case "green":
+                label.style.color = "rgb(59, 207, 97)"
+                break;
+            case "yellow":
+                label.style.color = "rgb(254, 213, 51)"
+                break;
+            case "orange":
+                label.style.color = "rgb(253, 158, 43)"
+                break;
+            case "grey":
+                label.style.color = "rgb(114, 126, 135)"
+                break;
+            case "pink":
+                label.style.color = "rgb(212, 131, 242)"
+                break;
+            case "blue":
+                label.style.color = "rgb(28, 135, 251)"
+                break;
+            default:
         }
 
         important.appendChild(importantInput);
