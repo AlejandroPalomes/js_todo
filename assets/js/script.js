@@ -103,6 +103,8 @@ function placeTask() {
     var oldEvents = document.querySelectorAll("#tasks li"); //? Select all li (tasks) currenty in display
     var tasksUl = document.querySelector("#tasksUl"); //? Select the "tasks display"
 
+    var sectionTitle = document.querySelector("#sectionTitle");
+
     var activeList;
     
     document.querySelectorAll("input[type='radio']").forEach(element => {
@@ -120,16 +122,20 @@ function placeTask() {
     if(allInput.checked){
         console.log("all selected");
         var tasksDisplay = tasks;
+        sectionTitle.textContent = "Tasks";
     }else if(importantInput.checked){
         console.log("important selected")
         var tasksDisplay = tasks.filter(task => task.important == true);
+        sectionTitle.textContent = "Important";
     }else if(completedInput.checked){
         console.log("completed selected")
         var tasksDisplay = tasks.filter(task => task.completed == true);
+        sectionTitle.textContent = "Completed";
     }else{
         console.log("other selected");
         // var tasksDisplay = checkUserList();
         var tasksDisplay = tasks.filter(task => task.customList == activeList);
+        sectionTitle.textContent = "List: " + activeList;
         console.log(activeList)
         console.log(tasksDisplay)
     }
