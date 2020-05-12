@@ -1,0 +1,392 @@
+*{
+    font-family: 'Nunito', sans-serif;
+    /* border: 1px solid red; */
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/*! HELPERS !*/
+
+.d-flex{
+    display: flex;
+}
+.f-col{
+    flex-direction: column;
+}
+.f-row{
+    flex-direction: row;
+}
+.ai-sb{
+    align-items: space-between;
+}
+.ai-c{
+    align-items: center;
+}
+.jc-sb{
+    justify-content: space-between;
+}
+.jc-c{
+    justify-content: center;
+}
+
+/*! HELPERS END !*/
+
+/*? ----------- CUSTOM CHECKBOX ----------- ?*/
+.container__custom__checkbox {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container__custom__checkbox input, .category-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container__custom__checkbox input:checked~.checkmark:after {
+    display: block;
+}
+
+.checkmark:after {
+    top: 3px;
+    left: 3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: white;
+}
+
+/*? ----------- CUSTOM CHECKBOX END ----------- ?*/
+
+body{
+    height: 100vh;
+}
+
+.todoList-container{
+    width: 900px;
+    height: 650px;
+    background: rgb(65, 65, 75);
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+header{
+    height: 20%;
+}
+
+.dateSector{
+    height: 75%;
+    width: 25%;
+    font-size: 25px;
+    align-items:center;
+}
+
+header > div:nth-child(1){
+    margin-left: 100px;
+    font-weight: 800;
+}
+header > div:nth-child(2){
+    margin-right: 100px;
+    justify-content: flex-end;
+    font-weight: 200;
+
+}
+#todayDay, #todayYear{
+    font-family: 'Roboto', sans-serif;
+}
+#todayDay{
+    font-size: 70px;
+    font-weight: 700;
+}
+#todayYear{
+    /* font-size: 30px; */
+    font-weight: 200;
+}
+
+ul{
+    list-style: none;
+}
+
+#todoList-Tasks{
+    height: 80%;
+    border-top: 1px solid;
+    border-color: rgb(53, 53, 59);
+    box-sizing: border-box;
+}
+
+#todoList-general{
+    box-sizing: border-box;
+    height: 100%;
+    padding: 20px;
+    width: 30%;
+    height: 100%;
+    background: rgb(53, 53, 59);
+    
+}
+
+.listModal-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#listModal{
+    background: rgba(0, 0, 0, 0);
+    width: 75%;
+    height: 30px;
+    font-size: 16px;
+    border:none;
+    outline: none;
+    border-bottom: 1px solid rgb(65, 65, 75);
+}
+
+#listModal-container button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 2px;
+    outline: none;
+}
+
+#listModal:focus{
+outline: none;
+}
+
+#mainCategories{
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.category-container {
+    box-sizing: border-box;
+    padding: 0 10px;
+    cursor: pointer;
+    width: 48%;
+    height: 60px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+#tasks{
+    box-sizing: border-box;
+    border-left: 1px solid;
+    border-color: rgb(53, 53, 59);
+    width: 70%;
+    height: 100%;
+    padding: 20px;
+}
+
+#tasks > span{
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+#tasksUl{
+    height: 100%;
+    /* justify-content: flex-start; */
+    /* border: 1px solid red; */
+}
+
+.tasksLi{
+    display: flex;
+    justify-content: space-between;
+}
+
+.taskLabel{
+    display: flex;
+    width: 95.5%;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    /* border: 1px solid blue; */
+}
+
+.importantCheckMark{
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
+    /* background: red; */
+}
+
+.importantCheckMark span{
+    width: 87px;
+    height: 23px;
+    padding: 0;
+    /* background: red; */
+}
+
+.importantCheckMark input:checked {
+    color: black;
+}
+
+.importantCheckMark span::after{
+    width: 87px;
+    height: 23px;
+    top: 0;
+    left: 0;
+}
+
+.deleteTask{
+    margin-top: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.createElement{
+    background: none;
+    position: relative;
+    width: 100px;
+    height: 35px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: rgb(180, 180, 180);
+}
+
+.createElement:active, .createElement:focus{
+    outline: none;
+}
+
+.createElement:active{
+    color: white;
+}
+.createElement::before{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    content:"+";
+    font-size: 20px;
+    background: rgb(180, 180, 180);
+    color: rgb(53, 53, 59);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    left: -5px;
+}
+.createElement:active::before{
+    background: white;
+}
+
+/*? ----------- MODAL ----------- ?*/
+
+.modal-container{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content{
+    justify-content: space-between;
+    height: 70%;
+    width: 450px;
+    background: rgb(65, 65, 75);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.modal-input:focus{
+    outline: none;
+}
+
+.modal-content form{
+    height: 70%;
+    width: 75%;
+    margin-top: 25px;
+    justify-content: space-evenly;
+}
+
+.modal-input{
+    box-sizing: border-box;
+    padding-left: 10px;
+    background: rgba(0, 0, 0, 0);
+    border: 0 solid;
+    border-bottom: 1px solid;
+    border-color: rgb(53, 53, 59);
+    font-size: 16px;
+    width: 100%;
+}
+
+.modal-input::placeholder{
+    color: rgb(180, 180, 180);
+}
+
+input.modal-input{
+    padding-bottom: 10px;
+    height: 30px;
+}
+
+textarea.modal-input{
+    height: 70px;
+    resize: none;
+}
+
+.checkbox-options{
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.modal_btn_container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.modal_btn{
+    width: 150px;
+    height: 50px;
+    margin: 20px 10px;
+    border: 1px solid white;
+    border-radius: 25px;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 100;
+    background: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.modal_btn:hover{
+    background: rgb(94, 94, 94);
+    transition: 0.3s ease;
+}
+/*? ----------- MODAL END ----------- ?*/
+
+
+
+.hidden{
+    display: none;
+}

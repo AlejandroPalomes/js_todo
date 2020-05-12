@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS ToDo List</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body class="d-flex ai-c jc-c">
+    <div class="todoList-container">
+        <header class="d-flex jc-sb ai-c">
+            <div id="todayDate" class="dateSector d-flex">
+                <span id="todayDay"></span>
+                <div class="d-flex f-col">
+                    <span id="todayMonth"></span>
+                    <span id="todayYear"></span>
+                </div>
+            </div>
+            <div class="dateSector d-flex">
+                <span id="todayWeekday"></span>
+            </div>
+    
+        </header>
+    
+        <div id="todoList-Tasks" class="d-flex">
+            <div id="todoList-general" class="d-flex f-col jc-sb">
+                <div>
+                    <div id="mainCategories" class="d-flex">
+                        <label class="category-container">
+                            <img src="assets/img/archive.svg" height="25" width="25" id="allIMG">
+                            <span>All</span>
+                            <input type="checkbox" id="categoryAll" name="main-category"/>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="category-container">
+                            <img src="assets/img/warning.svg" height="25" width="25" id="impIMG">
+                            <span>Important</span>
+                            <input type="radio" id="categoryImportant" name="main-category"/>
+                            <!-- <span class="checkmark"></span> -->
+                        </label>
+                        <label class="category-container">
+                            <img src="assets/img/check.svg" height="25" width="25" id="comIMG">
+                            <span>Completed</span>
+                            <input type="radio" id="categoryCompleted" name="main-category"/>
+                            <!-- <span class="checkmark"></span> -->
+                        </label>
+    
+                    </div>
+                    <ul id="userLists-container">
+                        <li>
+                            <label class="container__custom__checkbox">List 1
+                                <input type="radio" id="end_date_checkbox" name="end_date"/>
+                                <!-- <span class="checkmark"></span> -->
+                            </label>
+                        </li>
+                        <li>
+                            List 2
+                        </li>
+                    </ul>
+                    <div id="listModal-container" class="listModal-container hidden">
+                        <input id="listModal" type="text" maxlength="25" autofocus>
+                        <button><img id="confirmList" src="assets/img/confirm.svg" alt="cancel V" height="15"></button>
+                        <button><img id="cancelList" src="assets/img/clear.svg" alt="cancel X" height="15"></button>
+                    </div>
+                </div>
+                <button id="addList" class="createElement">Add list</button>
+            </div>
+            <div id="tasks" class="d-flex f-col jc-sb">
+                <span class="d-flex jc-c">Tasks</span>
+                <ul id="tasksUl" class="d-flex f-col">
+                    <!-- <li>
+                        <label class="container__custom__checkbox">TASK 1
+                            <input type="checkbox" id="end_date_checkbox" name="end_date"/>
+                            <span class="checkmark"></span>
+                        </label>
+                    </li> -->
+                </ul>
+                <button id="addTask" class="createElement">Add task</button>
+            </div>
+    
+        </div>
+    </div>
+    <div id="modal" class="hidden d-flex jc-c ai-c modal-container">
+        <div class=" d-flex f-col modal-content ai-c ">
+            <form class="d-flex f-col">
+                <input class="modal-input" type="text" id="taskTitle" name="title" placeholder="Title" >
+                <textarea class="modal-input" name="description" id="taskDescription" placeholder="Description"></textarea>
+                <div class="checkbox-options d-flex ai-c">
+                    <label class="container__custom__checkbox">Completed
+                        <input type="checkbox" id="completedCheck" name="end_date"/>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container__custom__checkbox">Important
+                        <input type="checkbox" id="importantCheck" name="end_date"/>
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <select id="customList" name="remind_time" class="modal-input">
+                    <option disabled selected>Select a custom list</option>
+                    <!-- <option value=300000 >5 minutes before</option> -->
+                </select>
+                <select id="taskColor" name="remind_time" class="modal-input">
+                    <option disabled selected>Select a color</option>
+                    <option value="purple">Purple</option>
+                    <option value="green">Green</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="orange">Orange</option>
+                    <option value="grey">Grey</option>
+                    <option value="pink">Pink</option>
+                    <option value="blue">Blue</option>
+                </select>
+            </form>
+            <div class="modal_btn_container">
+                <button class="save_btn modal_btn" id="save_btn">Save</button>
+                <button class="cancel_btn modal_btn" id="cancel_btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="assets/js/task.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
