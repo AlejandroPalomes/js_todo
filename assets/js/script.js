@@ -36,6 +36,7 @@ function clickListener(event) {
         }
         updateTasks();
     }
+    if (event.target.classList.contains("completedInput")) updateTasks();
     if (event.target.id == "addList") {
         document.querySelector("#listModal-container").classList.remove("hidden");
         document.querySelector("#listModal").focus();
@@ -43,8 +44,6 @@ function clickListener(event) {
     if (event.target.id == "cancelList") listModalPopDown();
     if (event.target.id == "confirmList") saveList(event.target);
     if (event.target.name == "section") placeTask();
-
-    // checkSection(event.target);
 }
 
 function hoverListener(event) {
@@ -104,12 +103,12 @@ function placeTask() {
     var oldEvents = document.querySelectorAll("#tasks li"); //? Select all li (tasks) currenty in display
     var tasksUl = document.querySelector("#tasksUl"); //? Select the "tasks display"
 
-    var radial = document.querySelectorAll("input[type=radio]");
-    var allSection = document.querySelector("#categoryAll").parentNode;
+    // var radial = document.querySelectorAll("input[type=radio]");
+    // var allSection = document.querySelector("#categoryAll").parentNode;
     var allInput = document.querySelector("#categoryAll");
-    var importantSection = document.querySelector("#categoryImportant").parentNode;
+    // var importantSection = document.querySelector("#categoryImportant").parentNode;
     var importantInput = document.querySelector("#categoryImportant");
-    var completedSection = document.querySelector("#categoryCompleted").parentNode;
+    // var completedSection = document.querySelector("#categoryCompleted").parentNode;
     var completedInput = document.querySelector("#categoryCompleted");
 
     changeCategory();
@@ -163,6 +162,7 @@ function placeTask() {
         label.classList.add("taskLabel");
         label.innerHTML = element.title;
         span.classList.add("checkmark");
+        element.completed ? label.classList.add("lineThrough") : label.classList.remove("lineThrough");
 
         deleteTask.src = "assets/img/clear.svg";
         deleteTask.classList.add("deleteTask");
@@ -213,18 +213,32 @@ function updateTasks(from) {
     from == "modal" ? modifier = 1 : modifier = 0;
 
     //? Obtain current values for checkbox from completed and important
-    var currentCInput = document.querySelectorAll("#tasks .completedInput");
-    var currentIInput = document.querySelectorAll("#tasks .importantInput");
+    var currentCInput = document.querySelectorAll(".taskLabel");
+    // var currentIInput = document.querySelectorAll(".importantCheckMark");
 
     //? Update tasks values with current values
-    for (let i = 0; i < tasks.length - modifier; i++) {
-        if (tasks[i].completed != currentCInput[i].checked) {
-            tasks[i].completed = currentCInput[i].checked;
-        }
-        if (tasks[i].important != currentIInput[i].checked) {
-            tasks[i].important = currentIInput[i].checked;
-        }
-    }
+
+    currentCInput.forEach(cInput =>{
+        tasks.forEach(task => {
+            console.log(task.title + " task.title");
+            console.log(cInput.textContent + " cInput.textContent");
+            if (task.title == cInput.textContent){
+                var currentCompleted = cInput.querySelector(".completedInput");
+                var currentImportant = cInput.parentNode.querySelector(".importantInput");
+                console.log ("task.title = cInput");
+                console.log (currentCompleted.checked);
+
+                if(task.completed != currentCompleted.checked){
+                    task.completed = currentCompleted.checked;
+
+                }
+                if(task.important != currentImportant.checked){
+                    task.important = currentImportant.checked;
+                }
+            }
+            console.log("--------------------")
+        });
+    });
     // for (let i = 0; i < tasks.length - modifier; i++) {
     //     if (tasks[i].completed != currentCInput[i].checked) {
     //         tasks[i].completed = currentCInput[i].checked;
@@ -237,6 +251,7 @@ function updateTasks(from) {
 
     //? Store new values to localStorage
     storeTasks();
+    placeTask();
 }
 
 function removeTask(element) {

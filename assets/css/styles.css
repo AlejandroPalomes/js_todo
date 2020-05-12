@@ -30,6 +30,11 @@
     justify-content: center;
 }
 
+.lineThrough{
+    text-decoration: line-through;
+    opacity: 0.3;
+}
+
 /*! HELPERS END !*/
 
 /*? ----------- CUSTOM CHECKBOX ----------- ?*/
