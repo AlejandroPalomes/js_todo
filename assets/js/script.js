@@ -22,7 +22,6 @@ document.addEventListener("mouseover", hoverListener);
 document.addEventListener("mouseout", hoverListener);
 
 function clickListener(event) {
-    console.log(event.target)
     if (event.target.id == "addTask") document.querySelector("#modal").classList.toggle("hidden");
     if (event.target.id == "cancel_btn" || event.target.id == "modal") cancelForm();
     if (event.target.id == "save_btn") generateTask("modal");
@@ -47,9 +46,7 @@ function clickListener(event) {
 }
 
 function hoverListener(event) {
-    
     if(event.target != document.querySelector("body")){
-        console.log("running shit")
         if (event.target.parentNode.classList.contains("important-hover")) {
             var buttonImportant = event.target.parentNode.querySelector(".importantCheckMark");
             var buttonDelete = event.target.parentNode.querySelector(".deleteTask");
@@ -60,6 +57,11 @@ function hoverListener(event) {
             var buttonDelete = event.target.parentNode.parentNode.querySelector(".deleteTask");
             buttonImportant.classList.toggle("hidden");
             buttonDelete.classList.toggle("hidden");
+        }
+
+        if(event.target.parentNode.classList.contains("userLists")){
+            console.log("on list element!")
+            // document.querySelector("#deleteList").classList.toggle("hidden");
         }
     }
 }
@@ -433,6 +435,7 @@ function placeList() {
 
         li.classList.add("userLists")
         label.innerHTML = element;
+        // label.classList.add("listLabel")
         input.type = "radio";
         input.name = "section";
         input.value = element;
