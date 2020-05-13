@@ -11,6 +11,7 @@ var userLists = [];
 // var completedList = [];
 // var importantList = [];
 var toRemove;
+var toRemoveTasks;
 
 document.querySelector("#todayDay").innerHTML = day;
 document.querySelector("#todayMonth").innerHTML = month;
@@ -292,11 +293,6 @@ function removeTask(element) {
 
     updateTasks();
 
-    // if(typeof element.textContent === undefined){
-
-    // }
-    console.log(element.textContent)
-
     var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
 
     if (tasksJSON === null) {
@@ -483,6 +479,7 @@ function removeList(element) {
     if(listTasks.length > 0){
         document.querySelector("#listRemoveAlert").classList.toggle("hidden");
         document.querySelector("#remainingItems").textContent = listTasks.length;
+        toRemoveTasks = listTasks;
         console.log(listTasks);
     }else{
         let index;
@@ -502,6 +499,31 @@ function removeList(element) {
 }
 
 function removeAll(){
+    //remove all tasks in List
+    var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
+
+    if (tasksJSON === null) {
+        tasks = [];
+    } else {
+        tasks = tasksJSON;
+    };
+    toRemoveTasks.forEach(rTask=>{
+        let index;
+        tasks.forEach(task => {
+            if (task.customList == rTask.customList) {
+                index = tasks.indexOf(task);
+            }
+        })
+    
+        if (index > -1) {
+            tasks.splice(index, 1);
+        }
+    })
+
+    storeTasks();
+    placeTask();
+
+    //Remove List
     var listsJSON = JSON.parse(localStorage.getItem("userLists"));
 
     if (listsJSON === null) {
@@ -509,12 +531,6 @@ function removeAll(){
     } else {
         userLists = listsJSON;
     };
-
-    var listTasks = tasks.filter(task => task.customList == toRemove);
-
-    listTasks.forEach(task=>{
-        removeTask(task.title);
-    })
 
     let index;
     userLists.forEach(list => {
@@ -530,6 +546,7 @@ function removeAll(){
     storeList();
     placeList();
     document.querySelector("#listRemoveAlert").classList.toggle("hidden");
+    document.querySelector("#categoryAll").click();
     
 }
 
