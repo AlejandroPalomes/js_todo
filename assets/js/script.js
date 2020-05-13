@@ -69,19 +69,21 @@ function hoverListener(event) {
             var buttonImportant = event.target.parentNode.querySelector(".importantCheckMark");
             var buttonDelete = event.target.parentNode.querySelector(".deleteTask");
             var description = event.target.parentNode.querySelector(".descriptionBox");
-            var description = event.target.parentNode.querySelector(".timeCheckBox");
+            var time = event.target.parentNode.querySelector(".timeCheckBox");
             buttonImportant.classList.toggle("hidden");
             buttonDelete.classList.toggle("hidden");
             description.classList.toggle("hidden");
+            time.classList.toggle("hidden");
             checkTime(event.target.parentNode);
         } else if (event.target.parentNode.parentNode.classList.contains("important-hover")) {
             var buttonImportant = event.target.parentNode.parentNode.querySelector(".importantCheckMark");
             var buttonDelete = event.target.parentNode.parentNode.querySelector(".deleteTask");
             var description = event.target.parentNode.parentNode.querySelector(".descriptionBox");
-            var description = event.target.parentNode.parentNode.querySelector(".timeCheckBox");
+            var time = event.target.parentNode.parentNode.querySelector(".timeCheckBox");
             buttonImportant.classList.toggle("hidden");
             buttonDelete.classList.toggle("hidden");
             description.classList.toggle("hidden");
+            time.classList.toggle("hidden");
             checkTime(event.target.parentNode.parentNode);
         };
 
@@ -258,7 +260,7 @@ function placeTask(searchValue) {
         //!------------
         timeInput.type = "checkbox";
         timeInput.classList.add("timeInput")
-        timeInput.checked = true;
+        timeInput.checked = element.timeControl;
         //!------------
 
         li.classList.add("important-hover");
@@ -511,7 +513,7 @@ function placeList() {
         input.name = "section";
         input.value = element;
         input.classList.add("testingRadio");
-        
+
         deleteList.src = "assets/img/clear.svg";
         deleteList.classList.add("deleteList");
         deleteList.classList.add("hidden");

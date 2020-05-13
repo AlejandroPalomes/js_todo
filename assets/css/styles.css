@@ -110,17 +110,18 @@ header{
 
 .dateSector{
     height: 75%;
-    width: 25%;
+    width: 16%;
     font-size: 25px;
+    justify-content: space-between;
     align-items:center;
 }
 
 header > div:nth-child(1){
-    margin-left: 70px;
+    margin-left: 60px;
     font-weight: 800;
 }
 header > div:nth-child(2){
-    margin-right: 70px;
+    margin-right: 60px;
     justify-content: flex-end;
     font-weight: 200;
 
@@ -271,16 +272,6 @@ outline: none;
     display: none;
 }
 
-/* #tasksUl::after{
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100px;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(2,0,36,0) 0%, rgb(65,65,75)85%);
-    /* z-index: 3;
-}*/
-
 .tasksLi{
     display: flex;
     position: relative;
@@ -293,8 +284,7 @@ outline: none;
     width: 95.5%;
     margin-bottom: 10px;
     justify-content: space-between;
-    flex: 1 0 70%
-    /* border: 1px solid blue; */
+    flex: 1 0 50%;
 }
 
 .descriptionBox{
@@ -313,10 +303,17 @@ outline: none;
     font-weight: 600;
 }
 
-.importantCheckMark, .timeCheckBox{
+.importantCheckMark{
     position: relative;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.timeCheckBox{
+    position: relative;
+    padding-left: 5px;
+    padding-right: 10px;
+    margin-right: 7px;
 }
 
 .importantCheckMark span{
@@ -328,7 +325,7 @@ outline: none;
 
 .timeCheckBox span{
     box-sizing: border-box;
-    width: 50px;
+    width: 57px;
     height: 23px;
     padding: 2px 0 0 0;
 }
@@ -351,12 +348,12 @@ outline: none;
     padding-left: 8px;
 }
 .timeCheckBox span::after{
-    width: 50px;
+    width: 57px;
     height: 23px;
     top: 0;
     left: 0;
     color: rgb(65, 65, 75);
-    content: "Important";
+    content: "Active";
     box-sizing: border-box;
     padding-left: 5px;
 }
