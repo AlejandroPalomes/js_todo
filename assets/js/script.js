@@ -69,6 +69,7 @@ function hoverListener(event) {
             var buttonImportant = event.target.parentNode.querySelector(".importantCheckMark");
             var buttonDelete = event.target.parentNode.querySelector(".deleteTask");
             var description = event.target.parentNode.querySelector(".descriptionBox");
+            var description = event.target.parentNode.querySelector(".timeCheckBox");
             buttonImportant.classList.toggle("hidden");
             buttonDelete.classList.toggle("hidden");
             description.classList.toggle("hidden");
@@ -77,6 +78,7 @@ function hoverListener(event) {
             var buttonImportant = event.target.parentNode.parentNode.querySelector(".importantCheckMark");
             var buttonDelete = event.target.parentNode.parentNode.querySelector(".deleteTask");
             var description = event.target.parentNode.parentNode.querySelector(".descriptionBox");
+            var description = event.target.parentNode.parentNode.querySelector(".timeCheckBox");
             buttonImportant.classList.toggle("hidden");
             buttonDelete.classList.toggle("hidden");
             description.classList.toggle("hidden");
@@ -319,6 +321,9 @@ function placeTask(searchValue) {
 
         important.appendChild(importantInput);
         important.appendChild(importantCheckMark);
+
+        timeLabel.appendChild(timeInput);
+        timeLabel.appendChild(timeCheckBox);
 
         label.appendChild(input);
         label.appendChild(span);

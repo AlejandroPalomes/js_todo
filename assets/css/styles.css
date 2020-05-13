@@ -313,7 +313,7 @@ outline: none;
     font-weight: 600;
 }
 
-.importantCheckMark{
+.importantCheckMark, .timeCheckBox{
     position: relative;
     padding-left: 10px;
     padding-right: 10px;
@@ -323,11 +323,20 @@ outline: none;
     box-sizing: border-box;
     width: 87px;
     height: 23px;
-    padding: 0;
-    padding-top: 2px;
+    padding: 2px 0 0 0;
+}
+
+.timeCheckBox span{
+    box-sizing: border-box;
+    width: 50px;
+    height: 23px;
+    padding: 2px 0 0 0;
 }
 
 .importantCheckMark input:checked {
+    color: black;
+}
+.timeCheckBox input:checked {
     color: black;
 }
 
@@ -340,6 +349,16 @@ outline: none;
     content: "Important";
     box-sizing: border-box;
     padding-left: 8px;
+}
+.timeCheckBox span::after{
+    width: 50px;
+    height: 23px;
+    top: 0;
+    left: 0;
+    color: rgb(65, 65, 75);
+    content: "Important";
+    box-sizing: border-box;
+    padding-left: 5px;
 }
 
 .deleteTask, .deleteList{
