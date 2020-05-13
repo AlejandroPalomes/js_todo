@@ -216,6 +216,14 @@ outline: none;
     justify-content: space-between;
 }
 
+.todoList-general__custom-lists-title{
+    border-bottom: 1px solid rgb(65, 65, 75);
+    font-weight: 800;
+    width: 50%;
+    display: inline-block;
+    margin: 10px 0 7px 0;
+}
+
 .userLists label{
     cursor: pointer;
     display: inline-block;
@@ -264,8 +272,6 @@ outline: none;
     overflow-y: scroll;
     -ms-overflow-style: none;
     position: relative;
-    /* justify-content: flex-start; */
-    /* border: 1px solid red; */
 }
 
 #tasksUl::-webkit-scrollbar {

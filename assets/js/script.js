@@ -49,7 +49,13 @@ function clickListener(event) {
         }
         updateTasks();
     }
-    if (event.target.classList.contains("completedInput")) updateTasks();
+    if (event.target.classList.contains("completedInput")){
+        if(event.target.parentNode.parentNode.querySelector(".timeInput").checked){
+            event.target.parentNode.parentNode.querySelector(".timeInput").click();
+        }else{
+            updateTasks();
+        }
+    }
     if (event.target.classList.contains("timeInput")) {
         updateTime(event.target.parentNode.parentNode);
         updateTasks();
