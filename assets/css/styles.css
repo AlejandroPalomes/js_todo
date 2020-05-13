@@ -116,11 +116,11 @@ header{
 }
 
 header > div:nth-child(1){
-    margin-left: 100px;
+    margin-left: 70px;
     font-weight: 800;
 }
 header > div:nth-child(2){
-    margin-right: 100px;
+    margin-right: 70px;
     justify-content: flex-end;
     font-weight: 200;
 

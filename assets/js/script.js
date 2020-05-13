@@ -4,7 +4,7 @@ var year = date.getFullYear();
 let monthArray = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 let weekDayArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 var month = monthArray[date.getMonth()];
-var weekDay = weekDayArray[date.getDay()];
+var weekDay = weekDayArray[date.getDay()-1];
 
 var tasks = [];
 var userLists = [];
@@ -169,7 +169,7 @@ function placeTask() {
     }else if(pendingInput.checked){
         console.log("completed selected")
         var tasksDisplay = tasks.filter(task => task.completed == false);
-        sectionTitle.textContent = "Completed";
+        sectionTitle.textContent = "Pending";
     }else{
         console.log("other selected");
         var tasksDisplay = tasks.filter(task => task.customList == activeList);
