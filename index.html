@@ -107,6 +107,19 @@
             </div>
         </div>
     </div>
+    <div id="listRemoveAlert" class="hidden d-flex jc-c ai-c modal-container">
+        <div class="d-flex f-col ai-c alert-content">
+            <div class="alert-message d-flex f-col jc-se ai-c">
+                <span>Hey!! Wait a second!</span>
+                <span>This list isn't empty, it contains <span id="remainingItems"></span> tasks.</span>
+                <span>Are you sure you want to delete it?</span>
+            </div>
+            <div class="modal_btn_container">
+                <button class="delete_btn modal_btn" id="delete_btn">Delete</button>
+                <button class="cancel_delete_btn modal_btn" id="cancel_delete_btn">Cancel</button>
+            </div>
+        </div>
+    </div>
 
 
     <script src="assets/js/task.js"></script>

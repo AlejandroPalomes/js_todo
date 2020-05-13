@@ -30,6 +30,10 @@
     justify-content: center;
 }
 
+.jc-se{
+    justify-content: space-evenly;
+}
+
 .lineThrough{
     text-decoration: line-through;
     opacity: 0.3;
@@ -220,6 +224,24 @@ outline: none;
     opacity: 0;
 }
 
+.alert-content{
+    height: 250px;
+}
+
+#remainingItems{
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(250, 73, 71);
+}
+
+#listRemoveAlert div>span:first-child{
+    font-size: 40px;
+}
+
+.alert-message{
+    height: 80%;
+}
+
 #tasks{
     box-sizing: border-box;
     border-left: 1px solid;
@@ -346,13 +368,16 @@ outline: none;
     background: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content{
+.modal-content, .alert-content{
     justify-content: space-between;
-    height: 70%;
     width: 450px;
     background: rgb(65, 65, 75);
     border-radius: 5px;
     overflow: hidden;
+}
+
+.modal-content{
+    height: 70%;
 }
 
 .modal-input:focus{

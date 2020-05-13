@@ -10,6 +10,7 @@ var tasks = [];
 var userLists = [];
 // var completedList = [];
 // var importantList = [];
+var toRemove;
 
 document.querySelector("#todayDay").innerHTML = day;
 document.querySelector("#todayMonth").innerHTML = month;
@@ -44,6 +45,9 @@ function clickListener(event) {
     if (event.target.id == "confirmList") saveList(event.target);
     if (event.target.name == "section") placeTask();
     if (event.target.classList.contains("deleteList")) removeList(event.target.parentNode.querySelector("label"));
+
+    if (event.target.id == "cancel_delete_btn" || event.target.id == "listRemoveAlert") document.querySelector("#listRemoveAlert").classList.toggle("hidden");
+    if (event.target.id == "delete_btn") removeAll();
 }
 
 function hoverListener(event) {
@@ -61,7 +65,6 @@ function hoverListener(event) {
         }
 
         if(event.target.parentNode.classList.contains("userLists")){
-            console.log("on list element!")
             event.target.parentNode.querySelector(".deleteList").classList.toggle("hidden");
         }
     }
@@ -140,11 +143,8 @@ function placeTask() {
         sectionTitle.textContent = "Completed";
     }else{
         console.log("other selected");
-        // var tasksDisplay = checkUserList();
         var tasksDisplay = tasks.filter(task => task.customList == activeList);
         sectionTitle.textContent = "List: " + activeList;
-        console.log(activeList)
-        console.log(tasksDisplay)
     }
 
     //? Set tasksDisplay as the localStorage tasks
@@ -262,13 +262,13 @@ function updateTasks(from) {
 
     currentCInput.forEach(cInput =>{
         tasks.forEach(task => {
-            console.log(task.title + " task.title");
-            console.log(cInput.textContent + " cInput.textContent");
+            // console.log(task.title + " task.title");
+            // console.log(cInput.textContent + " cInput.textContent");
             if (task.title == cInput.textContent){
                 var currentCompleted = cInput.querySelector(".completedInput");
                 var currentImportant = cInput.parentNode.querySelector(".importantInput");
-                console.log ("task.title = cInput");
-                console.log (currentCompleted.checked);
+                // console.log ("task.title = cInput");
+                // console.log (currentCompleted.checked);
 
                 if(task.completed != currentCompleted.checked){
                     task.completed = currentCompleted.checked;
@@ -278,7 +278,7 @@ function updateTasks(from) {
                     task.important = currentImportant.checked;
                 }
             }
-            console.log("--------------------")
+            // console.log("--------------------");
         });
     });
 
@@ -291,6 +291,11 @@ function updateTasks(from) {
 function removeTask(element) {
 
     updateTasks();
+
+    // if(typeof element.textContent === undefined){
+
+    // }
+    console.log(element.textContent)
 
     var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
 
@@ -465,6 +470,7 @@ function selectUserLists(){
 function removeList(element) {
 
     var listsJSON = JSON.parse(localStorage.getItem("userLists"));
+    toRemove = element.textContent;
 
     if (listsJSON === null) {
         userLists = [];
@@ -472,9 +478,47 @@ function removeList(element) {
         userLists = listsJSON;
     };
 
+    var listTasks = tasks.filter(task => task.customList == element.textContent);
+
+    if(listTasks.length > 0){
+        document.querySelector("#listRemoveAlert").classList.toggle("hidden");
+        document.querySelector("#remainingItems").textContent = listTasks.length;
+        console.log(listTasks);
+    }else{
+        let index;
+        userLists.forEach(list => {
+            if (list == element.textContent) {
+                index = userLists.indexOf(list);
+            }
+        })
+    
+        if (index > -1) {
+            userLists.splice(index, 1);
+        }
+    
+        storeList();
+        placeList();
+    }
+}
+
+function removeAll(){
+    var listsJSON = JSON.parse(localStorage.getItem("userLists"));
+
+    if (listsJSON === null) {
+        userLists = [];
+    } else {
+        userLists = listsJSON;
+    };
+
+    var listTasks = tasks.filter(task => task.customList == toRemove);
+
+    listTasks.forEach(task=>{
+        removeTask(task.title);
+    })
+
     let index;
     userLists.forEach(list => {
-        if (list == element.textContent) {
+        if (list == toRemove) {
             index = userLists.indexOf(list);
         }
     })
@@ -485,7 +529,10 @@ function removeList(element) {
 
     storeList();
     placeList();
+    document.querySelector("#listRemoveAlert").classList.toggle("hidden");
+    
 }
+
 
 
 placeTask();
