@@ -156,7 +156,9 @@ function checkTime(element){
             var minutes;
             ((task.ellapsedTime/60)/60)<1 ? hours = "00" : hours = ((task.ellapsedTime/60)/60);
             (task.ellapsedTime/60)<1 ? minutes = "00" : minutes = (task.ellapsedTime/60);
-            element.querySelector(".descriptionBox > span:nth-child(2)").textContent = ("Time elapsed: " + Math.round(hours) + "h "+ Math.round(minutes) +"min");
+            (task.ellapsedTime/60)<1 ? minutes = "00" : minutes = (task.ellapsedTime/60);
+            (task.ellapsedTime/60)>60 ? minutes = (task.ellapsedTime/60)-(60*Math.floor((task.ellapsedTime/60)/60)) : minutes = (task.ellapsedTime/60);
+            element.querySelector(".descriptionBox > span:nth-child(2)").textContent = ("Time elapsed: " + Math.floor(hours) + "h "+ Math.floor(minutes) +"min");
         };
     });
 };
@@ -580,9 +582,16 @@ function selectUserLists(){
 
 function removeList(element) {
     toRemove = element.textContent;
+    console.log(element.querySelector("input").value);
     reloadLists();
 
-    var listTasks = tasks.filter(task => task.customList == element.textContent);
+    // var listTasks = tasks.filter(task => task.customList == element.textContent);
+    //I had to use the following line because there's a bug, if you place a list wirh "<" without space after, it detects it
+    //as som HTML element and places in the list only the text before that sign. With value, we obtain everything
+    //But there's still a bug when deleting a list that has some tasks, it deletes the tasks but not the list, you have to repeat
+    //the process twice to delete both elements.
+
+    var listTasks = tasks.filter(task => task.customList == element.querySelector("input").value);
 
     if(listTasks.length > 0){
         document.querySelector("#listRemoveAlert").classList.toggle("hidden");
@@ -591,7 +600,7 @@ function removeList(element) {
     }else{
         let index;
         userLists.forEach(list => {
-            if (list == element.textContent) {
+            if (list == element.querySelector("input").value) {
                 index = userLists.indexOf(list);
             };
         });
@@ -644,8 +653,6 @@ function removeAll(){
     document.querySelector("#listRemoveAlert").classList.toggle("hidden");
     document.querySelector("#categoryPending").click();
 }
-
-
 
 placeTask();
 placeList();
