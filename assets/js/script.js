@@ -97,21 +97,18 @@ function hoverListener(event) {
     };
 };
 
-//!---------------
-//!---------------
-//!---------------
-//!---------------
-//!---------------
-//!---------------
-//!---------------
+//! ---------------- TIME SECTION ----------------------- !\\
 
 function checkTime(element){
-    var time = new Date();
-    // var timeMS = Date.parse(time)
+    
     tasks.forEach(task=>{
-        // console.log(element.querySelector(".taskLabel").textContent);
         if(task.title == element.querySelector(".taskLabel").textContent){
             // console.log((((Date.parse(time)-Date.parse(task.startTime))/1000)/60)+task.ellapsedTime);
+            var hours;
+            var minutes;
+            ((task.ellapsedTime/60)/60)<1 ? hours = "00" : hours = ((task.ellapsedTime/60)/60);
+            (task.ellapsedTime/60)<1 ? minutes = "00" : minutes = (task.ellapsedTime/60);
+            element.querySelector(".descriptionBox > span:nth-child(2)").textContent = ("Time elapsed: " + Math.round(hours) + "h "+ Math.round(minutes) +"min");
         };
     });
 };
@@ -145,14 +142,7 @@ function updateTime(element){
     });
 }
 
-//!---------------
-//!---------------
-//!---------------
-//!---------------
-//!---------------
-//!---------------
-//!---------------
-
+//! ---------------- TIME SECTION ----------------------- !\\
 
 function keyListener(event) {
     if(searchBar === document.activeElement){
@@ -266,6 +256,7 @@ function placeTask(searchValue) {
         var label = document.createElement("label");
         var span = document.createElement("span");
         var input = document.createElement("input");
+        var ellapsed = document.createElement("span");
         var description = document.createElement("span");
         var uList = document.createElement("span");
         var infoContainer = document.createElement("div");
@@ -282,6 +273,7 @@ function placeTask(searchValue) {
         element.customList == "Select a custom list" ? uList.textContent = "" : uList.textContent = element.customList;
         description.textContent = element.description;
         infoContainer.appendChild(uList);
+        infoContainer.appendChild(ellapsed);
         infoContainer.appendChild(description);
 
         input.type = "checkbox";
