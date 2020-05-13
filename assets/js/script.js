@@ -36,7 +36,7 @@ var searchBar = document.querySelector("#searchBar");
 document.addEventListener("click", clickListener);
 document.addEventListener("mouseover", hoverListener);
 document.addEventListener("mouseout", hoverListener);
-document.addEventListener("keydown", keyListener);
+document.addEventListener("keyup", keyListener);
 
 function clickListener(event) {
     if (event.target.id == "addTask") document.querySelector("#modal").classList.toggle("hidden");
@@ -91,10 +91,21 @@ function hoverListener(event) {
 }
 
 function keyListener(event) {
-    if(searchBar === document.activeElement && searchBar.value.length>0){
+    console.log(searchBar.value)
+    if(searchBar === document.activeElement){
         placeTask(searchBar.value);
         console.log("search bar is active with value: " + searchBar.value);
+
+        if(event.which === 27){
+            searchBar.blur();
+            searchBar.value = "";
+            placeTask();
+        }
+        if(event.which === 13){
+            searchBar.blur();
+        }
     }
+    
 }
 
 function cancelForm() {
@@ -185,7 +196,7 @@ function placeTask(searchValue) {
         }
     }else{
         console.log("search selected");
-        var tasksDisplay = tasks.filter(task => task.title.includes(searchValue));
+        var tasksDisplay = tasks.filter(task => task.title.toLowerCase().includes(searchValue.toLowerCase()));
         sectionTitle.textContent = "List: " + searchValue;
     }
 

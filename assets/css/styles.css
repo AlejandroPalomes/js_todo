@@ -403,16 +403,17 @@ outline: none;
     position: relative;
 }
 
-.tasks-footer > input::before{
-    content: "ased<czxz";
+/* .tasks-footer > input::before{
+    content: "";
     height: 12px;
     width: 12px;
+    display: block;
     background-image: url(../img/magnifier.svg);
     background-size: cover;
     position: absolute;
-    left: 0;
+    left: -100px;
     top: 0;
-}
+} */
 
 /*? ----------- MODAL ----------- ?*/
 
