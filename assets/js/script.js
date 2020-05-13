@@ -263,6 +263,7 @@ function placeTask() {
         li.appendChild(label);
         li.appendChild(important);
         li.appendChild(deleteTask);
+        li.appendChild(description);
         tasksUl.appendChild(li);
 
     })

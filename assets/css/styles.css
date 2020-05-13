@@ -281,6 +281,8 @@ outline: none;
 
 .tasksLi{
     display: flex;
+    position: relative;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
@@ -289,7 +291,23 @@ outline: none;
     width: 95.5%;
     margin-bottom: 10px;
     justify-content: space-between;
+    flex: 1 0 70%
     /* border: 1px solid blue; */
+}
+
+.descriptionBox{
+    display: flex;
+    flex-basis: 100%;
+    box-sizing: border-box;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 100;
+    color: rgb(180, 180, 180);
+    /* position: absolute;
+    left: 0;
+    bottom: 0; */
+    /* transform: translateY(100px); */
 }
 
 .importantCheckMark{
@@ -315,7 +333,10 @@ outline: none;
     height: 23px;
     top: 0;
     left: 0;
+    /* display: flex;
+    flex: 1 0 20% */
 }
+
 
 .deleteTask, .deleteList{
     margin-top: 5px;
