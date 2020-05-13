@@ -89,16 +89,33 @@ function hoverListener(event) {
     };
 };
 
-function checkTime(element){
-    var time;
+//!---------------
+//!---------------
+//!---------------
+//!---------------
+//!---------------
+//!---------------
+//!---------------
 
+function checkTime(element){
+    var time = new Date();
+    // var timeMS = Date.parse(time)
     tasks.forEach(task=>{
-        console.log(element.querySelector(".taskLabel").textContent);
+        // console.log(element.querySelector(".taskLabel").textContent);
         if(task.title == element.querySelector(".taskLabel").textContent){
-            console.log(task.startTime);
+            console.log(((Date.parse(time)-Date.parse(task.startTime))/1000)/60);
         };
     });
 };
+
+//!---------------
+//!---------------
+//!---------------
+//!---------------
+//!---------------
+//!---------------
+//!---------------
+
 
 function keyListener(event) {
     if(searchBar === document.activeElement){
@@ -133,7 +150,7 @@ function generateTask(from) {
     var importantCheck = document.querySelector("#importantCheck").checked;
     var customList = document.querySelector("#customList").value;
     var color = document.querySelector("#taskColor").value;
-    var startTime = new Date();
+    var startTime = new Date;
 
     if (title && description) {
         var newTask = new Task(title, description, completedCheck, importantCheck, customList, color, startTime);
@@ -211,13 +228,16 @@ function placeTask(searchValue) {
         var li = document.createElement("li");
         var label = document.createElement("label");
         var span = document.createElement("span");
+        var input = document.createElement("input");
         var description = document.createElement("span");
         var uList = document.createElement("span");
         var infoContainer = document.createElement("div");
-        var input = document.createElement("input");
         var important = document.createElement("label");
         var importantCheckMark = document.createElement("span");
         var importantInput = document.createElement("input");
+        var timeLabel = document.createElement("label");
+        var timeCheckBox = document.createElement("span");
+        var timeInput = document.createElement("input");
         var deleteTask = document.createElement("img");
 
         infoContainer.classList.add("descriptionBox");
@@ -233,6 +253,11 @@ function placeTask(searchValue) {
         importantInput.type = "checkbox";
         importantInput.classList.add("importantInput")
         importantInput.checked = element.important;
+        //!------------
+        timeInput.type = "checkbox";
+        timeInput.classList.add("timeInput")
+        timeInput.checked = true;
+        //!------------
 
         li.classList.add("important-hover");
         li.classList.add("tasksLi");
@@ -253,6 +278,13 @@ function placeTask(searchValue) {
         important.classList.add("hidden");
         important.innerHTML = "Important";
         importantCheckMark.classList.add("checkmark");
+        //!------------
+        timeLabel.classList.add("timeCheckBox");
+        timeLabel.classList.add("container__custom__checkbox");
+        timeLabel.classList.add("hidden");
+        timeLabel.innerHTML = "Active";
+        timeCheckBox.classList.add("checkmark");
+        //!------------
 
         if (element.important) {
             label.style.fontWeight = "800"
@@ -291,6 +323,7 @@ function placeTask(searchValue) {
         label.appendChild(input);
         label.appendChild(span);
         li.appendChild(label);
+        li.appendChild(timeLabel);
         li.appendChild(important);
         li.appendChild(deleteTask);
         li.appendChild(infoContainer);
