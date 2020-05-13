@@ -318,9 +318,11 @@ outline: none;
 }
 
 .importantCheckMark span{
+    box-sizing: border-box;
     width: 87px;
     height: 23px;
     padding: 0;
+    padding-top: 2px;
     /* background: red; */
 }
 
@@ -333,6 +335,10 @@ outline: none;
     height: 23px;
     top: 0;
     left: 0;
+    color: rgb(65, 65, 75);
+    content: "Important";
+    box-sizing: border-box;
+    padding-left: 8px;
     /* display: flex;
     flex: 1 0 20% */
 }

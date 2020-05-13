@@ -581,7 +581,7 @@ function removeAll(){
     storeList();
     placeList();
     document.querySelector("#listRemoveAlert").classList.toggle("hidden");
-    document.querySelector("#categoryAll").click();
+    document.querySelector("#categoryPending").click();
     
 }
 
