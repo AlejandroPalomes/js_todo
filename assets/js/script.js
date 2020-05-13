@@ -92,6 +92,8 @@ function hoverListener(event) {
 function cancelForm() {
     document.querySelector("#modal").classList.toggle("hidden");
     document.querySelector(".modal-content form").reset();
+    document.querySelector("#taskTitle").style.borderColor = "rgb(53, 53, 59)";
+    description = document.querySelector("#taskDescription").style.borderColor = "rgb(53, 53, 59)";
 }
 
 function generateTask(from) {
@@ -113,6 +115,14 @@ function generateTask(from) {
         placeTask();
         cancelForm();
     }
+    if(!title && !description){
+        document.querySelector("#taskTitle").style.borderColor = "red";
+        description = document.querySelector("#taskDescription").style.borderColor = "red";
+    } else if(!title){
+        document.querySelector("#taskTitle").style.borderColor = "red";
+    } else if(!description){
+        description = document.querySelector("#taskDescription").style.borderColor = "red";
+    };
 }
 
 function placeTask() {
