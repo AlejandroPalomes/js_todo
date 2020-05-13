@@ -97,6 +97,30 @@ function hoverListener(event) {
     };
 };
 
+//! ---------------- LISTENERS SECTION ----------------------- !\\
+
+function keyListener(event) {
+    if(searchBar === document.activeElement){
+        placeTask(searchBar.value);
+
+        if(event.which === 27){
+            searchBar.blur();
+            searchBar.value = "";
+            placeTask();
+        }
+        if(event.which === 13){
+            searchBar.blur();
+        }
+    }
+}
+
+function cancelForm() {
+    document.querySelector("#modal").classList.toggle("hidden");
+    document.querySelector(".modal-content form").reset();
+    document.querySelector("#taskTitle").style.borderColor = "rgb(53, 53, 59)";
+    description = document.querySelector("#taskDescription").style.borderColor = "rgb(53, 53, 59)";
+}
+
 //! ---------------- TIME SECTION ----------------------- !\\
 
 function checkTime(element){
@@ -115,7 +139,6 @@ function checkTime(element){
 
 function updateTime(element){
 
-    //? Obtain lists from localStorage
     var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
 
     if (listsJSON === null) { //? Check if there is no localStorage
@@ -143,28 +166,6 @@ function updateTime(element){
 }
 
 //! ---------------- TIME SECTION ----------------------- !\\
-
-function keyListener(event) {
-    if(searchBar === document.activeElement){
-        placeTask(searchBar.value);
-
-        if(event.which === 27){
-            searchBar.blur();
-            searchBar.value = "";
-            placeTask();
-        }
-        if(event.which === 13){
-            searchBar.blur();
-        }
-    }
-}
-
-function cancelForm() {
-    document.querySelector("#modal").classList.toggle("hidden");
-    document.querySelector(".modal-content form").reset();
-    document.querySelector("#taskTitle").style.borderColor = "rgb(53, 53, 59)";
-    description = document.querySelector("#taskDescription").style.borderColor = "rgb(53, 53, 59)";
-}
 
 
 //! ----------------------- TASKS SECTION ------------------------ !\\
