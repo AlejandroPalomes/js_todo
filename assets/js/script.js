@@ -132,7 +132,8 @@ function placeTask() {
 
     if(allInput.checked){
         console.log("all selected");
-        var tasksDisplay = tasks;
+        // var tasksDisplay = tasks;
+        var tasksDisplay = tasks.filter(task => task.completed == false);
         sectionTitle.textContent = "All Tasks";
     }else if(importantInput.checked){
         console.log("important selected")
