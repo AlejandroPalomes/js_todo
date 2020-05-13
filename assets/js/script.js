@@ -115,6 +115,10 @@ function cancelForm() {
     description = document.querySelector("#taskDescription").style.borderColor = "rgb(53, 53, 59)";
 }
 
+
+//! ----------------------- TASKS SECTION ------------------------ !\\
+
+
 function generateTask(from) {
     var title = document.querySelector("#taskTitle").value;
     var description = document.querySelector("#taskDescription").value;
@@ -315,19 +319,14 @@ function updateTasks(from) {
 
     //? Obtain current values for checkbox from completed and important
     var currentCInput = document.querySelectorAll(".taskLabel");
-    // var currentIInput = document.querySelectorAll(".importantCheckMark");
 
     //? Update tasks values with current values
 
     currentCInput.forEach(cInput =>{
         tasks.forEach(task => {
-            // console.log(task.title + " task.title");
-            // console.log(cInput.textContent + " cInput.textContent");
             if (task.title == cInput.textContent){
                 var currentCompleted = cInput.querySelector(".completedInput");
                 var currentImportant = cInput.parentNode.querySelector(".importantInput");
-                // console.log ("task.title = cInput");
-                // console.log (currentCompleted.checked);
 
                 if(task.completed != currentCompleted.checked){
                     task.completed = currentCompleted.checked;
@@ -337,7 +336,6 @@ function updateTasks(from) {
                     task.important = currentImportant.checked;
                 }
             }
-            // console.log("--------------------");
         });
     });
 
@@ -413,15 +411,19 @@ function changeCategory(category) {
         pendingSection.style.background = "rgba(255, 255, 255, 0.15)";
         penIMG.src = "assets/img/clock.svg"
     }
-
+    
+    document.querySelectorAll("input[type='radio']").forEach(element => {
+        if(element.checked){
+            element.parentNode.style.color = "rgb(180, 180, 180)";
+        }else{
+            element.parentNode.style.color = "white";
+        }
+    })
 }
 
-// function showDescription(event){
-//     while (event.classList.contains("important-hover")) {
-//         console.log(event.clientX, event.clientY);
-//         // var timeout = setTimeout(showDescription, 500);
-//     }
-// }
+
+//! ---------------------- LIST SECTION --------------------------- !\\
+
 
 function saveList(list) {
     var newList = (list.parentNode.parentNode.querySelector("input").value);
@@ -429,7 +431,6 @@ function saveList(list) {
     userLists.push(newList);
 
     storeList();
-    // updateList("modal");
     selectUserLists();
     placeList();
     listModalPopDown();
