@@ -18,6 +18,19 @@ document.querySelector("#todayMonth").innerHTML = month;
 document.querySelector("#todayWeekday").innerHTML = weekDay;
 document.querySelector("#todayYear").innerHTML = year;
 
+var allSection = document.querySelector("#categoryAll").parentNode;
+var allInput = document.querySelector("#categoryAll");
+var importantSection = document.querySelector("#categoryImportant").parentNode;
+var importantInput = document.querySelector("#categoryImportant");
+var completedSection = document.querySelector("#categoryCompleted").parentNode;
+var completedInput = document.querySelector("#categoryCompleted");
+var pendingSection = document.querySelector("#categoryPending").parentNode;
+var pendingInput = document.querySelector("#categoryPending");
+var allIMG = document.querySelector("#allIMG");
+var impIMG = document.querySelector("#impIMG");
+var comIMG = document.querySelector("#comIMG");
+var penIMG = document.querySelector("#penIMG");
+
 
 document.addEventListener("click", clickListener);
 document.addEventListener("mouseover", hoverListener);
@@ -124,16 +137,17 @@ function placeTask() {
         }
     })
 
-    var allInput = document.querySelector("#categoryAll");
-    var importantInput = document.querySelector("#categoryImportant");
-    var completedInput = document.querySelector("#categoryCompleted");
+    // var allInput = document.querySelector("#categoryAll");
+    // var importantInput = document.querySelector("#categoryImportant");
+    // var completedInput = document.querySelector("#categoryCompleted");
+    // var pendingInput = document.querySelector("#categoryPending");
 
     changeCategory();
 
     if(allInput.checked){
         console.log("all selected");
-        // var tasksDisplay = tasks;
-        var tasksDisplay = tasks.filter(task => task.completed == false);
+        var tasksDisplay = tasks;
+        // var tasksDisplay = tasks.filter(task => task.completed == false);
         sectionTitle.textContent = "All Tasks";
     }else if(importantInput.checked){
         console.log("important selected")
@@ -142,6 +156,10 @@ function placeTask() {
     }else if(completedInput.checked){
         console.log("completed selected")
         var tasksDisplay = tasks.filter(task => task.completed == true);
+        sectionTitle.textContent = "Completed";
+    }else if(pendingInput.checked){
+        console.log("completed selected")
+        var tasksDisplay = tasks.filter(task => task.completed == false);
         sectionTitle.textContent = "Completed";
     }else{
         console.log("other selected");
@@ -328,15 +346,18 @@ function storeTasks() {
 function changeCategory(category) {
 
     // var radial = document.querySelectorAll("input[type=radio]");
-    var allSection = document.querySelector("#categoryAll").parentNode;
-    var allInput = document.querySelector("#categoryAll");
-    var importantSection = document.querySelector("#categoryImportant").parentNode;
-    var importantInput = document.querySelector("#categoryImportant");
-    var completedSection = document.querySelector("#categoryCompleted").parentNode;
-    var completedInput = document.querySelector("#categoryCompleted");
-    var allIMG = document.querySelector("#allIMG");
-    var impIMG = document.querySelector("#impIMG");
-    var comIMG = document.querySelector("#comIMG");
+    // var allSection = document.querySelector("#categoryAll").parentNode;
+    // var allInput = document.querySelector("#categoryAll");
+    // var importantSection = document.querySelector("#categoryImportant").parentNode;
+    // var importantInput = document.querySelector("#categoryImportant");
+    // var completedSection = document.querySelector("#categoryCompleted").parentNode;
+    // var completedInput = document.querySelector("#categoryCompleted");
+    // var pendingSection = document.querySelector("#categoryPending").parentNode;
+    // var pendingInput = document.querySelector("#categoryPending");
+    // var allIMG = document.querySelector("#allIMG");
+    // var impIMG = document.querySelector("#impIMG");
+    // var comIMG = document.querySelector("#comIMG");
+    // var penIMG = document.querySelector("#penIMG");
 
 
     if(allInput.checked){
@@ -346,7 +367,7 @@ function changeCategory(category) {
         allSection.style.background = "rgba(255, 255, 255, 0.15)";
         allIMG.src = "assets/img/archive.svg"
     }
-    
+
     if(importantInput.checked){
         importantSection.style.background = "rgb(252, 71, 65)";
         impIMG.src = "assets/img/warning2.svg";
@@ -354,13 +375,21 @@ function changeCategory(category) {
         importantSection.style.background = "rgba(255, 255, 255, 0.15)";
         impIMG.src = "assets/img/warning.svg";
     }
-    
+
     if(completedInput.checked){
         completedSection.style.background = "rgb(28, 135, 251)";
         comIMG.src = "assets/img/check2.svg"
     }else{
         completedSection.style.background = "rgba(255, 255, 255, 0.15)";
         comIMG.src = "assets/img/check.svg"
+    }
+
+    if(pendingInput.checked){
+        pendingSection.style.background = "rgb(114, 126, 135)";
+        penIMG.src = "assets/img/clock2.svg"
+    }else{
+        pendingSection.style.background = "rgba(255, 255, 255, 0.15)";
+        penIMG.src = "assets/img/clock.svg"
     }
 
 }
