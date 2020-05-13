@@ -72,6 +72,7 @@ function hoverListener(event) {
             buttonImportant.classList.toggle("hidden");
             buttonDelete.classList.toggle("hidden");
             description.classList.toggle("hidden");
+            checkTime(event.target.parentNode);
         } else if (event.target.parentNode.parentNode.classList.contains("important-hover")) {
             var buttonImportant = event.target.parentNode.parentNode.querySelector(".importantCheckMark");
             var buttonDelete = event.target.parentNode.parentNode.querySelector(".deleteTask");
@@ -79,13 +80,25 @@ function hoverListener(event) {
             buttonImportant.classList.toggle("hidden");
             buttonDelete.classList.toggle("hidden");
             description.classList.toggle("hidden");
-        }
+            checkTime(event.target.parentNode.parentNode);
+        };
 
         if(event.target.parentNode.classList.contains("userLists")){
             event.target.parentNode.querySelector(".deleteList").classList.toggle("hidden");
-        }
-    }
-}
+        };
+    };
+};
+
+function checkTime(element){
+    var time;
+
+    tasks.forEach(task=>{
+        console.log(element.querySelector(".taskLabel").textContent);
+        if(task.title == element.querySelector(".taskLabel").textContent){
+            console.log(task.startTime);
+        };
+    });
+};
 
 function keyListener(event) {
     if(searchBar === document.activeElement){
@@ -120,9 +133,10 @@ function generateTask(from) {
     var importantCheck = document.querySelector("#importantCheck").checked;
     var customList = document.querySelector("#customList").value;
     var color = document.querySelector("#taskColor").value;
+    var startTime = new Date();
 
     if (title && description) {
-        var newTask = new Task(title, description, completedCheck, importantCheck, customList, color);
+        var newTask = new Task(title, description, completedCheck, importantCheck, customList, color, startTime);
 
         tasks.push(newTask);
 
