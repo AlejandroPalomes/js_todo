@@ -151,7 +151,6 @@ function checkTime(element){
     
     tasks.forEach(task=>{
         if(task.title == element.querySelector(".taskLabel").textContent){
-            // console.log((((Date.parse(time)-Date.parse(task.startTime))/1000)/60)+task.ellapsedTime);
             var hours;
             var minutes;
             ((task.ellapsedTime/60)/60)<1 ? hours = "00" : hours = ((task.ellapsedTime/60)/60);
@@ -171,16 +170,10 @@ function updateTime(element){
         if(task.title == element.querySelector(".taskLabel").textContent && element.querySelector(".timeInput").checked){
             task.startTime = new Date();
             task.startTime = (Date.parse(task.startTime)/1000);
-            console.log(task.startTime + " task.startTime when activated");
-            console.log(task.ellapsedTime + " task.ellapsedTime when activated");
-            console.log("-----------------------------------");
         }else if(task.title == element.querySelector(".taskLabel").textContent && !element.querySelector(".timeInput").checked){
             var time = new Date();
             time = Date.parse(time)/1000;
             task.ellapsedTime += time-task.startTime;
-            console.log(task.startTime + " task.startTime when unchecked");
-            console.log(task.ellapsedTime + " task.ellapsedTime when unchecked");
-            console.log("-----------------------------------");
         };
     });
 }
@@ -582,7 +575,6 @@ function selectUserLists(){
 
 function removeList(element) {
     toRemove = element.textContent;
-    console.log(element.querySelector("input").value);
     reloadLists();
 
     // var listTasks = tasks.filter(task => task.customList == element.textContent);
