@@ -146,8 +146,7 @@ function checkTime(element){
 function updateTime(element){
 
     var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
-
-    if (listsJSON === null) { //? Check if there is no localStorage
+    if (listsJSON === null) {
         tasks = [];
     } else {
         tasks = listsJSON;
@@ -208,10 +207,8 @@ function generateTask(from) {
 
 function placeTask(searchValue) {
 
-    //? Obtain lists from localStorage
     var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
-
-    if (listsJSON === null) { //? Check if there is no localStorage
+    if (listsJSON === null) {
         tasks = [];
     } else {
         tasks = listsJSON;
@@ -252,12 +249,10 @@ function placeTask(searchValue) {
         sectionTitle.textContent = "Search: " + searchValue;
     };
 
-    //? Remove old values in the tasks display
     oldEvents.forEach(element => {
         element.remove();
     });
 
-    //? Place new updated tasks in display
     tasksDisplay.forEach(element => {
         var li = document.createElement("li");
         var label = document.createElement("label");
@@ -289,11 +284,10 @@ function placeTask(searchValue) {
         importantInput.type = "checkbox";
         importantInput.classList.add("importantInput")
         importantInput.checked = element.important;
-        //!------------
+
         timeInput.type = "checkbox";
         timeInput.classList.add("timeInput")
         timeInput.checked = element.timeControl;
-        //!------------
 
         li.classList.add("important-hover");
         li.classList.add("tasksLi");
@@ -314,13 +308,12 @@ function placeTask(searchValue) {
         important.classList.add("hidden");
         important.innerHTML = "Important";
         importantCheckMark.classList.add("checkmark");
-        //!------------
+
         timeLabel.classList.add("timeCheckBox");
         timeLabel.classList.add("container__custom__checkbox");
         timeLabel.classList.add("hidden");
         timeLabel.innerHTML = "Active";
         timeCheckBox.classList.add("checkmark");
-        //!------------
 
         if (element.important) {
             label.style.fontWeight = "800"
@@ -403,12 +396,10 @@ function updateTasks(from) {
                 if(task.important != currentImportant.checked){
                     task.important = currentImportant.checked;
                 }
-                
+
                 if(task.timeControl != currentTime.checked){
                     task.timeControl = currentTime.checked;
                 }
-                
-
             }
         });
     });
@@ -537,17 +528,16 @@ function storeList() {
 };
 
 function placeList() {
-    // Obtain tasks from localStorage
-    var listsJSON = JSON.parse(localStorage.getItem("userLists"));
 
-    if (listsJSON === null) { // Check if there is no localStorage
+    var listsJSON = JSON.parse(localStorage.getItem("userLists"));
+    if (listsJSON === null) {
         userLists = [];
     } else {
         userLists = listsJSON;
     };
 
-    var oldLists = document.querySelectorAll("#userLists-container li"); // Select all li (tasks) currenty in display
-    var listsUl = document.querySelector("#userLists-container"); // Select the "tasks display"
+    var oldLists = document.querySelectorAll("#userLists-container li");
+    var listsUl = document.querySelector("#userLists-container");
 
     // Set tasksDisplay as the localStorage tasks
     var listsDisplay = userLists;
@@ -625,11 +615,11 @@ function removeList(element) {
                 index = userLists.indexOf(list);
             };
         });
-    
+
         if (index > -1) {
             userLists.splice(index, 1);
         };
-    
+
         storeList();
         placeList();
     }
@@ -651,7 +641,7 @@ function removeAll(){
                 index = tasks.indexOf(task);
             };
         });
-    
+
         if (index > -1) {
             tasks.splice(index, 1);
         };
