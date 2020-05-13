@@ -103,6 +103,24 @@ function hoverListener(event) {
     };
 };
 
+function reloadTasks(){
+    var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
+    if (tasksJSON === null) {
+        tasks = [];
+    } else {
+        tasks = tasksJSON;
+    };
+}
+
+function reloadLists(){
+    var listsJSON = JSON.parse(localStorage.getItem("userLists"));
+    if (listsJSON === null) {
+        userLists = [];
+    } else {
+        userLists = listsJSON;
+    };
+}
+
 //! ---------------- LISTENERS SECTION ----------------------- !\\
 
 function keyListener(event) {
@@ -145,12 +163,7 @@ function checkTime(element){
 
 function updateTime(element){
 
-    var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
-    if (listsJSON === null) {
-        tasks = [];
-    } else {
-        tasks = listsJSON;
-    };
+    reloadTasks();
 
     tasks.forEach(task=>{
         if(task.title == element.querySelector(".taskLabel").textContent && element.querySelector(".timeInput").checked){
@@ -207,12 +220,7 @@ function generateTask(from) {
 
 function placeTask(searchValue) {
 
-    var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
-    if (listsJSON === null) {
-        tasks = [];
-    } else {
-        tasks = listsJSON;
-    };
+    reloadTasks();
 
     var oldEvents = document.querySelectorAll("#tasks li");
     var tasksUl = document.querySelector("#tasksUl");
@@ -365,18 +373,8 @@ function placeTask(searchValue) {
 
 function updateTasks(from) {
 
-    // var currTasksTime = tasks.filter(task => task.startTime);
-    // console.log(currTasksTime);
-
     var currTasks = tasks;
-
-    //? Update localStorage with new values
-    var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
-    if (tasksJSON === null) {
-        tasks = [];
-    } else {
-        tasks = tasksJSON;
-    };
+    reloadTasks();
 
     //? Obtain current values for checkbox from completed, important and time
     var currentCInput = document.querySelectorAll(".taskLabel");
@@ -426,14 +424,7 @@ function updateTasks(from) {
 function removeTask(element) {
 
     updateTasks();
-
-    var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
-
-    if (tasksJSON === null) {
-        tasks = [];
-    } else {
-        tasks = tasksJSON;
-    };
+    reloadTasks();
 
     let index;
     tasks.forEach(task => {
@@ -529,12 +520,7 @@ function storeList() {
 
 function placeList() {
 
-    var listsJSON = JSON.parse(localStorage.getItem("userLists"));
-    if (listsJSON === null) {
-        userLists = [];
-    } else {
-        userLists = listsJSON;
-    };
+    reloadLists();
 
     var oldLists = document.querySelectorAll("#userLists-container li");
     var listsUl = document.querySelector("#userLists-container");
@@ -593,14 +579,8 @@ function selectUserLists(){
 };
 
 function removeList(element) {
-    var listsJSON = JSON.parse(localStorage.getItem("userLists"));
     toRemove = element.textContent;
-
-    if (listsJSON === null) {
-        userLists = [];
-    } else {
-        userLists = listsJSON;
-    };
+    reloadLists();
 
     var listTasks = tasks.filter(task => task.customList == element.textContent);
 
@@ -626,14 +606,9 @@ function removeList(element) {
 }
 
 function removeAll(){
-    //remove all tasks in List
-    var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
 
-    if (tasksJSON === null) {
-        tasks = [];
-    } else {
-        tasks = tasksJSON;
-    };
+    reloadTasks();
+
     toRemoveTasks.forEach(rTask=>{
         let index;
         tasks.forEach(task => {
@@ -651,13 +626,7 @@ function removeAll(){
     placeTask();
 
     //Remove List
-    var listsJSON = JSON.parse(localStorage.getItem("userLists"));
-
-    if (listsJSON === null) {
-        userLists = [];
-    } else {
-        userLists = listsJSON;
-    };
+    reloadLists();
 
     let index;
     userLists.forEach(list => {
