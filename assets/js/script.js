@@ -11,7 +11,6 @@ var userLists = [];
 
 var toRemove;
 var toRemoveTasks;
-// var onHover = false;
 
 document.querySelector("#todayDay").innerHTML = day;
 document.querySelector("#todayMonth").innerHTML = month;
@@ -41,7 +40,6 @@ function clickListener(event) {
     if (event.target.id == "addTask") document.querySelector("#modal").classList.toggle("hidden");
     if (event.target.id == "cancel_btn" || event.target.id == "modal") cancelForm();
     if (event.target.id == "save_btn") generateTask("modal");
-    //if (event.target.name == "main-category") changeCategory(event.target);
     if (event.target.classList.contains("deleteTask")) removeTask(event.target.parentNode.querySelector("label:first-child"));
     if (event.target.classList.contains("importantInput")) {
         if (!event.target.parentNode.parentNode.querySelector(".importantInput").checked) {
@@ -90,10 +88,8 @@ function hoverListener(event) {
 }
 
 function keyListener(event) {
-    console.log(searchBar.value)
     if(searchBar === document.activeElement){
         placeTask(searchBar.value);
-        console.log("search bar is active with value: " + searchBar.value);
 
         if(event.which === 27){
             searchBar.blur();
@@ -130,7 +126,6 @@ function generateTask(from) {
         var newTask = new Task(title, description, completedCheck, importantCheck, customList, color);
 
         tasks.push(newTask);
-        // console.log(tasks);
 
         storeTasks();
         updateTasks(from);
@@ -148,8 +143,6 @@ function generateTask(from) {
 }
 
 function placeTask(searchValue) {
-
-    console.log("placeTask executed");
 
     //? Obtain lists from localStorage
     var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
@@ -177,34 +170,25 @@ function placeTask(searchValue) {
 
     if(!searchValue){
         if(allInput.checked){
-            console.log("all selected");
             var tasksDisplay = tasks;
             sectionTitle.textContent = "All Tasks";
         }else if(importantInput.checked){
-            console.log("important selected")
             var tasksDisplay = tasks.filter(task => (task.important == true && task.completed == false));
             sectionTitle.textContent = "Important";
         }else if(completedInput.checked){
-            console.log("completed selected")
             var tasksDisplay = tasks.filter(task => task.completed == true);
             sectionTitle.textContent = "Completed";
         }else if(pendingInput.checked){
-            console.log("completed selected")
             var tasksDisplay = tasks.filter(task => task.completed == false);
             sectionTitle.textContent = "Pending";
         }else{
-            console.log("other selected");
             var tasksDisplay = tasks.filter(task => (task.customList == activeList && task.completed == false));
             sectionTitle.textContent = "List: " + activeList;
         }
     }else{
-        console.log("search selected");
         var tasksDisplay = tasks.filter(task => task.title.toLowerCase().includes(searchValue.toLowerCase()));
-        sectionTitle.textContent = "List: " + searchValue;
+        sectionTitle.textContent = "Search: " + searchValue;
     }
-
-    //? Set tasksDisplay as the localStorage tasks
-    // var tasksDisplay = tasks;
 
     //? Remove old values in the tasks display
     oldEvents.forEach(element => {
@@ -212,29 +196,31 @@ function placeTask(searchValue) {
     })
 
     //? Place new updated tasks in display
-    var idNumber = 0;
-    var idNumber2 = 0;
+
     tasksDisplay.forEach(element => {
         var li = document.createElement("li");
         var label = document.createElement("label");
         var span = document.createElement("span");
         var description = document.createElement("span");
+        var uList = document.createElement("span");
+        var infoContainer = document.createElement("div");
         var input = document.createElement("input");
         var important = document.createElement("label");
         var importantCheckMark = document.createElement("span");
         var importantInput = document.createElement("input");
         var deleteTask = document.createElement("img");
 
-        description.classList.add("descriptionBox");
-        description.classList.add("hidden");
+        infoContainer.classList.add("descriptionBox");
+        infoContainer.classList.add("hidden");
+        element.customList == "Select a custom list" ? uList.textContent = "" : uList.textContent = element.customList;
         description.textContent = element.description;
+        infoContainer.appendChild(uList);
+        infoContainer.appendChild(description);
 
         input.type = "checkbox";
-        input.id = "completed" + element.title + idNumber++;
         input.classList.add("completedInput")
         input.checked = element.completed;
         importantInput.type = "checkbox";
-        importantInput.id = "important" + element.title + idNumber2++;
         importantInput.classList.add("importantInput")
         importantInput.checked = element.important;
 
@@ -255,9 +241,6 @@ function placeTask(searchValue) {
         important.classList.add("importantCheckMark");
         important.classList.add("container__custom__checkbox");
         important.classList.add("hidden");
-        var innerHt = document.createElement("span");
-        innerHt.textContent = "Important";
-        innerHt.classList.add("testeo-importante");
         important.innerHTML = "Important";
         importantCheckMark.classList.add("checkmark");
 
@@ -300,7 +283,7 @@ function placeTask(searchValue) {
         li.appendChild(label);
         li.appendChild(important);
         li.appendChild(deleteTask);
-        li.appendChild(description);
+        li.appendChild(infoContainer);
         tasksUl.appendChild(li);
 
     })
@@ -374,7 +357,6 @@ function removeTask(element) {
 function storeTasks() {
     var JSONTasks = JSON.stringify(tasks);
     localStorage.setItem("tasksAll", JSONTasks);
-    console.log("tasks stored");
 }
 
 function changeCategory(category) {
@@ -410,7 +392,7 @@ function changeCategory(category) {
         pendingSection.style.background = "rgba(255, 255, 255, 0.15)";
         penIMG.src = "assets/img/clock.svg"
     }
-    
+
     document.querySelectorAll("input[type='radio']").forEach(element => {
         if(element.checked){
             element.parentNode.style.color = "rgb(180, 180, 180)";
@@ -448,8 +430,6 @@ function listModalPopDown() {
 function storeList() {
     var JSONLists = JSON.stringify(userLists);
     localStorage.setItem("userLists", JSONLists);
-    console.log("lists stored");
-    console.log(JSONLists);
 }
 
 function placeList() {
@@ -475,8 +455,7 @@ function placeList() {
     })
 
     // Place new updated tasks in display
-    var idNumber = 0;
-    var idNumber2 = 0;
+
     listsDisplay.forEach(element => {
         var li = document.createElement("li");
         var label = document.createElement("label");
@@ -485,7 +464,6 @@ function placeList() {
 
         li.classList.add("userLists")
         label.innerHTML = element;
-        // label.classList.add("listLabel")
         input.type = "radio";
         input.name = "section";
         input.value = element;
@@ -539,7 +517,6 @@ function removeList(element) {
         document.querySelector("#listRemoveAlert").classList.toggle("hidden");
         document.querySelector("#remainingItems").textContent = listTasks.length;
         toRemoveTasks = listTasks;
-        console.log(listTasks);
     }else{
         let index;
         userLists.forEach(list => {

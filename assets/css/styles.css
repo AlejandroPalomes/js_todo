@@ -299,6 +299,7 @@ outline: none;
 
 .descriptionBox{
     display: flex;
+    flex-direction: column;
     flex-basis: 70%;
     box-sizing: border-box;
     padding-left: 30px;
@@ -306,17 +307,16 @@ outline: none;
     font-size: 14px;
     font-weight: 100;
     color: rgb(180, 180, 180);
-    /* position: absolute;
-    left: 0;
-    bottom: 0; */
-    /* transform: translateY(100px); */
+}
+
+.descriptionBox span:first-child{
+    font-weight: 600;
 }
 
 .importantCheckMark{
     position: relative;
     padding-left: 10px;
     padding-right: 10px;
-    /* background: red; */
 }
 
 .importantCheckMark span{
@@ -325,7 +325,6 @@ outline: none;
     height: 23px;
     padding: 0;
     padding-top: 2px;
-    /* background: red; */
 }
 
 .importantCheckMark input:checked {
@@ -341,8 +340,6 @@ outline: none;
     content: "Important";
     box-sizing: border-box;
     padding-left: 8px;
-    /* display: flex;
-    flex: 1 0 20% */
 }
 
 .deleteTask, .deleteList{
@@ -392,9 +389,13 @@ outline: none;
     padding-top: 10px;
 }
 
-.tasks-footer > input{
-    margin-left: 55px;
+.search-bar{
     width: 70%;
+}
+
+.search-bar > input{
+    margin: 0 10px;
+    width: 90%;
     border: none;
     border-bottom: 1px solid rgb(53, 53, 59);
     background: rgb(65, 65, 75);
@@ -402,18 +403,6 @@ outline: none;
     font-size: 16px;
     position: relative;
 }
-
-/* .tasks-footer > input::before{
-    content: "";
-    height: 12px;
-    width: 12px;
-    display: block;
-    background-image: url(../img/magnifier.svg);
-    background-size: cover;
-    position: absolute;
-    left: -100px;
-    top: 0;
-} */
 
 /*? ----------- MODAL ----------- ?*/
 
