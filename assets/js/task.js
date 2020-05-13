@@ -5,7 +5,7 @@ function Task(title, description, completedCheck, importantCheck, customList, co
     this.important = importantCheck;
     this.customList = customList;
     this.color = color;
-    this.startTime = time;
+    // this.startTime = time;
     this.startTime = 0;
     this.timeControl = false;
     this.ellapsedTime = 0;

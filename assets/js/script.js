@@ -51,8 +51,8 @@ function clickListener(event) {
     }
     if (event.target.classList.contains("completedInput")) updateTasks();
     if (event.target.classList.contains("timeInput")) {
-        updateTasks();
         updateTime(event.target.parentNode.parentNode);
+        updateTasks();
     }
     if (event.target.id == "addList") {
         document.querySelector("#listModal-container").classList.remove("hidden");
@@ -117,22 +117,30 @@ function checkTime(element){
 };
 
 function updateTime(element){
+
+    //? Obtain lists from localStorage
+    var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
+
+    if (listsJSON === null) { //? Check if there is no localStorage
+        tasks = [];
+    } else {
+        tasks = listsJSON;
+    };
+
     tasks.forEach(task=>{
         if(task.title == element.querySelector(".taskLabel").textContent && element.querySelector(".timeInput").checked){
-            // console.log((((Date.parse(time)-Date.parse(task.startTime))/1000)/60)+task.ellapsedTime);
             task.startTime = new Date();
-            task.startTime = Date.parse(task.startTime)/1000;
-            console.log(task.startTime + " task.startTime");
+            task.startTime = (Date.parse(task.startTime)/1000);
+            console.log(task.startTime + " task.startTime when activated");
+            console.log(task.ellapsedTime + " task.ellapsedTime when activated");
+            console.log("-----------------------------------");
         }else if(task.title == element.querySelector(".taskLabel").textContent && !element.querySelector(".timeInput").checked){
             var time = new Date();
             time = Date.parse(time)/1000;
-            console.log(Date.parse(task.startTime)/1000 + " task.startTime")
-            console.log(time + " time")
-            // console.log(Math.round(((Date.parse(time)-Date.parse(task.startTime))/1000)));
-            // task.ellapsedTime += Math.round(((Date.parse(time)-Date.parse(task.startTime))/1000));
             task.ellapsedTime += time-task.startTime;
-            // task.startTime = "";
-            console.log(task.ellapsedTime);
+            console.log(task.startTime + " task.startTime when unchecked");
+            console.log(task.ellapsedTime + " task.ellapsedTime when unchecked");
+            console.log("-----------------------------------");
         };
     });
 }
@@ -365,7 +373,10 @@ function placeTask(searchValue) {
 
 function updateTasks(from) {
 
-    newTasks = tasks;
+    // var currTasksTime = tasks.filter(task => task.startTime);
+    // console.log(currTasksTime);
+
+    var currTasks = tasks;
 
     //? Update localStorage with new values
     var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
@@ -403,13 +414,18 @@ function updateTasks(from) {
         });
     });
 
-    newTasks.forEach(newTask =>{
+    currTasks.forEach(currTask =>{
         tasks.forEach(oldTask =>{
-            if(oldTask.startTime != newTask.startTime){
-                oldTask.startTime = newTask.startTime;
-            }
-        })
-    })
+            if (oldTask.title == currTask.title){
+                if(oldTask.startTime != currTask.startTime){
+                    oldTask.startTime = currTask.startTime;
+                };
+                if(oldTask.ellapsedTime != currTask.ellapsedTime){
+                    oldTask.ellapsedTime = currTask.ellapsedTime;
+                };
+            };
+        });
+    });;
 
 
     //? Store new values to localStorage
