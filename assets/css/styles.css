@@ -297,7 +297,7 @@ outline: none;
 
 .descriptionBox{
     display: flex;
-    flex-basis: 100%;
+    flex-basis: 70%;
     box-sizing: border-box;
     padding-left: 30px;
     margin-bottom: 10px;
@@ -336,7 +336,6 @@ outline: none;
     /* display: flex;
     flex: 1 0 20% */
 }
-
 
 .deleteTask, .deleteList{
     margin-top: 5px;
