@@ -507,6 +507,7 @@ textarea.modal-input{
     background: rgba(0, 0, 0, 0);
     cursor: pointer;
     transition: background 0.3s ease;
+    outline: none;
 }
 
 .modal_btn:hover{

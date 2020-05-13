@@ -186,7 +186,7 @@ function generateTask(from) {
     var color = document.querySelector("#taskColor").value;
     var startTime = new Date;
 
-    if (title && description) {
+    if (title && description && title.length > 2 && title.length < 51 && description.length < 501) {
         var newTask = new Task(title, description, completedCheck, importantCheck, customList, color, startTime);
 
         tasks.push(newTask);
@@ -199,11 +199,11 @@ function generateTask(from) {
     if(!title && !description){
         document.querySelector("#taskTitle").style.borderColor = "red";
         description = document.querySelector("#taskDescription").style.borderColor = "red";
-    } else if(!title){
+    } else if(!title || title.length > 50 || title.length < 3){
         document.querySelector("#taskTitle").style.borderColor = "red";
-    } else if(!description){
+    } else if(!description || description.length > 500){
         description = document.querySelector("#taskDescription").style.borderColor = "red";
-    };
+    }
 }
 
 function placeTask(searchValue) {
