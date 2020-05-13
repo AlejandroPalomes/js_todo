@@ -12,6 +12,7 @@ var userLists = [];
 // var importantList = [];
 var toRemove;
 var toRemoveTasks;
+// var onHover = false;
 
 document.querySelector("#todayDay").innerHTML = day;
 document.querySelector("#todayMonth").innerHTML = month;
@@ -69,13 +70,17 @@ function hoverListener(event) {
         if (event.target.parentNode.classList.contains("important-hover")) {
             var buttonImportant = event.target.parentNode.querySelector(".importantCheckMark");
             var buttonDelete = event.target.parentNode.querySelector(".deleteTask");
+            var description = event.target.parentNode.querySelector(".descriptionBox");
             buttonImportant.classList.toggle("hidden");
             buttonDelete.classList.toggle("hidden");
+            description.classList.toggle("hidden");
         } else if (event.target.parentNode.parentNode.classList.contains("important-hover")) {
             var buttonImportant = event.target.parentNode.parentNode.querySelector(".importantCheckMark");
             var buttonDelete = event.target.parentNode.parentNode.querySelector(".deleteTask");
+            var description = event.target.parentNode.parentNode.querySelector(".descriptionBox");
             buttonImportant.classList.toggle("hidden");
             buttonDelete.classList.toggle("hidden");
+            description.classList.toggle("hidden");
         }
 
         if(event.target.parentNode.classList.contains("userLists")){
@@ -110,7 +115,6 @@ function generateTask(from) {
     }
 }
 
-
 function placeTask() {
 
     console.log("placeTask executed")
@@ -136,11 +140,6 @@ function placeTask() {
             activeList = element.parentNode.textContent;
         }
     })
-
-    // var allInput = document.querySelector("#categoryAll");
-    // var importantInput = document.querySelector("#categoryImportant");
-    // var completedInput = document.querySelector("#categoryCompleted");
-    // var pendingInput = document.querySelector("#categoryPending");
 
     changeCategory();
 
@@ -182,11 +181,16 @@ function placeTask() {
         var li = document.createElement("li");
         var label = document.createElement("label");
         var span = document.createElement("span");
+        var description = document.createElement("span");
         var input = document.createElement("input");
         var important = document.createElement("label");
         var importantCheckMark = document.createElement("span");
         var importantInput = document.createElement("input");
         var deleteTask = document.createElement("img");
+
+        description.classList.add("descriptionBox");
+        description.classList.add("hidden");
+        description.textContent = element.description;
 
         input.type = "checkbox";
         input.id = "completed" + element.title + idNumber++;
@@ -331,8 +335,6 @@ function removeTask(element) {
         tasks.splice(index, 1);
     }
 
-    // array = [2, 9]
-
     storeTasks();
     placeTask();
 }
@@ -344,21 +346,6 @@ function storeTasks() {
 }
 
 function changeCategory(category) {
-
-    // var radial = document.querySelectorAll("input[type=radio]");
-    // var allSection = document.querySelector("#categoryAll").parentNode;
-    // var allInput = document.querySelector("#categoryAll");
-    // var importantSection = document.querySelector("#categoryImportant").parentNode;
-    // var importantInput = document.querySelector("#categoryImportant");
-    // var completedSection = document.querySelector("#categoryCompleted").parentNode;
-    // var completedInput = document.querySelector("#categoryCompleted");
-    // var pendingSection = document.querySelector("#categoryPending").parentNode;
-    // var pendingInput = document.querySelector("#categoryPending");
-    // var allIMG = document.querySelector("#allIMG");
-    // var impIMG = document.querySelector("#impIMG");
-    // var comIMG = document.querySelector("#comIMG");
-    // var penIMG = document.querySelector("#penIMG");
-
 
     if(allInput.checked){
         allSection.style.background = "rgb(253, 158, 43)";
@@ -393,6 +380,13 @@ function changeCategory(category) {
     }
 
 }
+
+// function showDescription(event){
+//     while (event.classList.contains("important-hover")) {
+//         console.log(event.clientX, event.clientY);
+//         // var timeout = setTimeout(showDescription, 500);
+//     }
+// }
 
 function saveList(list) {
     var newList = (list.parentNode.parentNode.querySelector("input").value);
