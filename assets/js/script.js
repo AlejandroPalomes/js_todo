@@ -31,11 +31,12 @@ var allIMG = document.querySelector("#allIMG");
 var impIMG = document.querySelector("#impIMG");
 var comIMG = document.querySelector("#comIMG");
 var penIMG = document.querySelector("#penIMG");
-
+var searchBar = document.querySelector("#searchBar");
 
 document.addEventListener("click", clickListener);
 document.addEventListener("mouseover", hoverListener);
 document.addEventListener("mouseout", hoverListener);
+document.addEventListener("keydown", keyListener);
 
 function clickListener(event) {
     if (event.target.id == "addTask") document.querySelector("#modal").classList.toggle("hidden");
@@ -89,6 +90,13 @@ function hoverListener(event) {
     }
 }
 
+function keyListener(event) {
+    if(searchBar === document.activeElement && searchBar.value.length>0){
+        placeTask(searchBar.value);
+        console.log("search bar is active with value: " + searchBar.value);
+    }
+}
+
 function cancelForm() {
     document.querySelector("#modal").classList.toggle("hidden");
     document.querySelector(".modal-content form").reset();
@@ -125,9 +133,9 @@ function generateTask(from) {
     };
 }
 
-function placeTask() {
+function placeTask(searchValue) {
 
-    console.log("placeTask executed")
+    console.log("placeTask executed");
 
     //? Obtain lists from localStorage
     var listsJSON = JSON.parse(localStorage.getItem("tasksAll"));
@@ -153,27 +161,32 @@ function placeTask() {
 
     changeCategory();
 
-    if(allInput.checked){
-        console.log("all selected");
-        var tasksDisplay = tasks;
-        // var tasksDisplay = tasks.filter(task => task.completed == false);
-        sectionTitle.textContent = "All Tasks";
-    }else if(importantInput.checked){
-        console.log("important selected")
-        var tasksDisplay = tasks.filter(task => (task.important == true && task.completed == false));
-        sectionTitle.textContent = "Important";
-    }else if(completedInput.checked){
-        console.log("completed selected")
-        var tasksDisplay = tasks.filter(task => task.completed == true);
-        sectionTitle.textContent = "Completed";
-    }else if(pendingInput.checked){
-        console.log("completed selected")
-        var tasksDisplay = tasks.filter(task => task.completed == false);
-        sectionTitle.textContent = "Pending";
+    if(!searchValue){
+        if(allInput.checked){
+            console.log("all selected");
+            var tasksDisplay = tasks;
+            sectionTitle.textContent = "All Tasks";
+        }else if(importantInput.checked){
+            console.log("important selected")
+            var tasksDisplay = tasks.filter(task => (task.important == true && task.completed == false));
+            sectionTitle.textContent = "Important";
+        }else if(completedInput.checked){
+            console.log("completed selected")
+            var tasksDisplay = tasks.filter(task => task.completed == true);
+            sectionTitle.textContent = "Completed";
+        }else if(pendingInput.checked){
+            console.log("completed selected")
+            var tasksDisplay = tasks.filter(task => task.completed == false);
+            sectionTitle.textContent = "Pending";
+        }else{
+            console.log("other selected");
+            var tasksDisplay = tasks.filter(task => task.customList == activeList);
+            sectionTitle.textContent = "List: " + activeList;
+        }
     }else{
-        console.log("other selected");
-        var tasksDisplay = tasks.filter(task => task.customList == activeList);
-        sectionTitle.textContent = "List: " + activeList;
+        console.log("search selected");
+        var tasksDisplay = tasks.filter(task => task.title.includes(searchValue));
+        sectionTitle.textContent = "List: " + searchValue;
     }
 
     //? Set tasksDisplay as the localStorage tasks
