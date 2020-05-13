@@ -50,7 +50,10 @@ function clickListener(event) {
         updateTasks();
     }
     if (event.target.classList.contains("completedInput")) updateTasks();
-    if (event.target.classList.contains("timeInput")) updateTasks();
+    if (event.target.classList.contains("timeInput")) {
+        updateTasks();
+        updateTime(event.target.parentNode.parentNode);
+    }
     if (event.target.id == "addList") {
         document.querySelector("#listModal-container").classList.remove("hidden");
         document.querySelector("#listModal").focus();
@@ -108,10 +111,31 @@ function checkTime(element){
     tasks.forEach(task=>{
         // console.log(element.querySelector(".taskLabel").textContent);
         if(task.title == element.querySelector(".taskLabel").textContent){
-            console.log(((Date.parse(time)-Date.parse(task.startTime))/1000)/60);
+            // console.log((((Date.parse(time)-Date.parse(task.startTime))/1000)/60)+task.ellapsedTime);
         };
     });
 };
+
+function updateTime(element){
+    tasks.forEach(task=>{
+        if(task.title == element.querySelector(".taskLabel").textContent && element.querySelector(".timeInput").checked){
+            // console.log((((Date.parse(time)-Date.parse(task.startTime))/1000)/60)+task.ellapsedTime);
+            task.startTime = new Date();
+            task.startTime = Date.parse(task.startTime)/1000;
+            console.log(task.startTime + " task.startTime");
+        }else if(task.title == element.querySelector(".taskLabel").textContent && !element.querySelector(".timeInput").checked){
+            var time = new Date();
+            time = Date.parse(time)/1000;
+            console.log(Date.parse(task.startTime)/1000 + " task.startTime")
+            console.log(time + " time")
+            // console.log(Math.round(((Date.parse(time)-Date.parse(task.startTime))/1000)));
+            // task.ellapsedTime += Math.round(((Date.parse(time)-Date.parse(task.startTime))/1000));
+            task.ellapsedTime += time-task.startTime;
+            // task.startTime = "";
+            console.log(task.ellapsedTime);
+        };
+    });
+}
 
 //!---------------
 //!---------------
@@ -341,6 +365,8 @@ function placeTask(searchValue) {
 
 function updateTasks(from) {
 
+    newTasks = tasks;
+
     //? Update localStorage with new values
     var tasksJSON = JSON.parse(localStorage.getItem("tasksAll"));
     if (tasksJSON === null) {
@@ -371,9 +397,19 @@ function updateTasks(from) {
                 if(task.timeControl != currentTime.checked){
                     task.timeControl = currentTime.checked;
                 }
+                
+
             }
         });
     });
+
+    newTasks.forEach(newTask =>{
+        tasks.forEach(oldTask =>{
+            if(oldTask.startTime != newTask.startTime){
+                oldTask.startTime = newTask.startTime;
+            }
+        })
+    })
 
 
     //? Store new values to localStorage
