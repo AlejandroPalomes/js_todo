@@ -100,7 +100,6 @@ function keyListener(event) {
             searchBar.blur();
         }
     }
-    
 }
 
 function cancelForm() {
@@ -153,13 +152,11 @@ function placeTask(searchValue) {
         tasks = listsJSON;
     };
 
-    var oldEvents = document.querySelectorAll("#tasks li"); //? Select all li (tasks) currenty in display
-    var tasksUl = document.querySelector("#tasksUl"); //? Select the "tasks display"
-
+    var oldEvents = document.querySelectorAll("#tasks li");
+    var tasksUl = document.querySelector("#tasksUl");
     var sectionTitle = document.querySelector("#sectionTitle");
-
     var activeList;
-    
+
     document.querySelectorAll("input[type='radio']").forEach(element => {
         if(element.checked){
             activeList = element.parentNode.textContent;
@@ -184,19 +181,18 @@ function placeTask(searchValue) {
         }else{
             var tasksDisplay = tasks.filter(task => (task.customList == activeList && task.completed == false));
             sectionTitle.textContent = "List: " + activeList;
-        }
+        };
     }else{
         var tasksDisplay = tasks.filter(task => task.title.toLowerCase().includes(searchValue.toLowerCase()));
         sectionTitle.textContent = "Search: " + searchValue;
-    }
+    };
 
     //? Remove old values in the tasks display
     oldEvents.forEach(element => {
         element.remove();
-    })
+    });
 
     //? Place new updated tasks in display
-
     tasksDisplay.forEach(element => {
         var li = document.createElement("li");
         var label = document.createElement("label");
@@ -285,7 +281,6 @@ function placeTask(searchValue) {
         li.appendChild(deleteTask);
         li.appendChild(infoContainer);
         tasksUl.appendChild(li);
-
     })
 }
 
@@ -303,7 +298,6 @@ function updateTasks(from) {
     var currentCInput = document.querySelectorAll(".taskLabel");
 
     //? Update tasks values with current values
-
     currentCInput.forEach(cInput =>{
         tasks.forEach(task => {
             if (task.title == cInput.textContent){
@@ -344,11 +338,11 @@ function removeTask(element) {
         if (task.title == element.textContent) {
             index = tasks.indexOf(task);
         }
-    })
+    });
 
     if (index > -1) {
         tasks.splice(index, 1);
-    }
+    };
 
     storeTasks();
     placeTask();
@@ -367,7 +361,7 @@ function changeCategory(category) {
     }else{
         allSection.style.background = "rgba(255, 255, 255, 0.15)";
         allIMG.src = "assets/img/archive.svg"
-    }
+    };
 
     if(importantInput.checked){
         importantSection.style.background = "rgb(252, 71, 65)";
@@ -375,7 +369,7 @@ function changeCategory(category) {
     }else{
         importantSection.style.background = "rgba(255, 255, 255, 0.15)";
         impIMG.src = "assets/img/warning.svg";
-    }
+    };
 
     if(completedInput.checked){
         completedSection.style.background = "rgb(28, 135, 251)";
@@ -383,7 +377,7 @@ function changeCategory(category) {
     }else{
         completedSection.style.background = "rgba(255, 255, 255, 0.15)";
         comIMG.src = "assets/img/check.svg"
-    }
+    };
 
     if(pendingInput.checked){
         pendingSection.style.background = "rgb(114, 126, 135)";
@@ -391,7 +385,7 @@ function changeCategory(category) {
     }else{
         pendingSection.style.background = "rgba(255, 255, 255, 0.15)";
         penIMG.src = "assets/img/clock.svg"
-    }
+    };
 
     document.querySelectorAll("input[type='radio']").forEach(element => {
         if(element.checked){
@@ -399,8 +393,8 @@ function changeCategory(category) {
         }else{
             element.parentNode.style.color = "white";
         }
-    })
-}
+    });
+};
 
 
 //! ---------------------- LIST SECTION --------------------------- !\\
@@ -408,32 +402,30 @@ function changeCategory(category) {
 
 function saveList(list) {
     var newList = (list.parentNode.parentNode.querySelector("input").value);
-
     userLists.push(newList);
 
     storeList();
     selectUserLists();
     placeList();
     listModalPopDown();
-}
+};
 
 function listModalPopUp() {
     document.querySelector("#listModal-container").classList.remove("hidden");
     document.querySelector("#listModal").focus();
-}
+};
 
 function listModalPopDown() {
     document.querySelector("#listModal-container").classList.add("hidden");
     document.querySelector("#listModal").value = "";
-}
+};
 
 function storeList() {
     var JSONLists = JSON.stringify(userLists);
     localStorage.setItem("userLists", JSONLists);
-}
+};
 
 function placeList() {
-
     // Obtain tasks from localStorage
     var listsJSON = JSON.parse(localStorage.getItem("userLists"));
 
@@ -452,10 +444,9 @@ function placeList() {
     // Remove old values in the tasks display
     oldLists.forEach(element => {
         element.remove();
-    })
+    });
 
     // Place new updated tasks in display
-
     listsDisplay.forEach(element => {
         var li = document.createElement("li");
         var label = document.createElement("label");
@@ -489,7 +480,7 @@ function selectUserLists(){
     //? Remove old values in the lists selector, except first one (default)
     for(var i = 1; i<oldLists.length; i++){
         oldLists[i].remove();
-    }
+    };
 
     userLists.forEach(element=>{
         var option = document.createElement("option");
@@ -497,11 +488,10 @@ function selectUserLists(){
         option.textContent = element;
 
         listSelector.appendChild(option);
-    })
-}
+    });
+};
 
 function removeList(element) {
-
     var listsJSON = JSON.parse(localStorage.getItem("userLists"));
     toRemove = element.textContent;
 
@@ -522,12 +512,12 @@ function removeList(element) {
         userLists.forEach(list => {
             if (list == element.textContent) {
                 index = userLists.indexOf(list);
-            }
-        })
+            };
+        });
     
         if (index > -1) {
             userLists.splice(index, 1);
-        }
+        };
     
         storeList();
         placeList();
@@ -548,13 +538,13 @@ function removeAll(){
         tasks.forEach(task => {
             if (task.customList == rTask.customList) {
                 index = tasks.indexOf(task);
-            }
-        })
+            };
+        });
     
         if (index > -1) {
             tasks.splice(index, 1);
-        }
-    })
+        };
+    });
 
     storeTasks();
     placeTask();
@@ -572,12 +562,12 @@ function removeAll(){
     userLists.forEach(list => {
         if (list == toRemove) {
             index = userLists.indexOf(list);
-        }
-    })
+        };
+    });
 
     if (index > -1) {
         userLists.splice(index, 1);
-    }
+    };
 
     storeList();
     placeList();
