@@ -6,4 +6,5 @@ function Task(title, description, completedCheck, importantCheck, customList, co
     this.customList = customList;
     this.color = color;
     this.startTime = time;
+    this.timeControl = false;
 }

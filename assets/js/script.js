@@ -50,6 +50,7 @@ function clickListener(event) {
         updateTasks();
     }
     if (event.target.classList.contains("completedInput")) updateTasks();
+    if (event.target.classList.contains("timeInput")) updateTasks();
     if (event.target.id == "addList") {
         document.querySelector("#listModal-container").classList.remove("hidden");
         document.querySelector("#listModal").focus();
@@ -348,7 +349,7 @@ function updateTasks(from) {
         tasks = tasksJSON;
     };
 
-    //? Obtain current values for checkbox from completed and important
+    //? Obtain current values for checkbox from completed, important and time
     var currentCInput = document.querySelectorAll(".taskLabel");
 
     //? Update tasks values with current values
@@ -357,6 +358,7 @@ function updateTasks(from) {
             if (task.title == cInput.textContent){
                 var currentCompleted = cInput.querySelector(".completedInput");
                 var currentImportant = cInput.parentNode.querySelector(".importantInput");
+                var currentTime = cInput.parentNode.querySelector(".timeInput");
 
                 if(task.completed != currentCompleted.checked){
                     task.completed = currentCompleted.checked;
@@ -364,6 +366,10 @@ function updateTasks(from) {
                 }
                 if(task.important != currentImportant.checked){
                     task.important = currentImportant.checked;
+                }
+                
+                if(task.timeControl != currentTime.checked){
+                    task.timeControl = currentTime.checked;
                 }
             }
         });
