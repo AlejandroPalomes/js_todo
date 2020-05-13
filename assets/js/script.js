@@ -8,8 +8,7 @@ var weekDay = weekDayArray[date.getDay()-1];
 
 var tasks = [];
 var userLists = [];
-// var completedList = [];
-// var importantList = [];
+
 var toRemove;
 var toRemoveTasks;
 // var onHover = false;
@@ -131,7 +130,7 @@ function generateTask(from) {
         var newTask = new Task(title, description, completedCheck, importantCheck, customList, color);
 
         tasks.push(newTask);
-        console.log(tasks);
+        // console.log(tasks);
 
         storeTasks();
         updateTasks(from);
@@ -195,7 +194,7 @@ function placeTask(searchValue) {
             sectionTitle.textContent = "Pending";
         }else{
             console.log("other selected");
-            var tasksDisplay = tasks.filter(task => task.customList == activeList);
+            var tasksDisplay = tasks.filter(task => (task.customList == activeList && task.completed == false));
             sectionTitle.textContent = "List: " + activeList;
         }
     }else{
@@ -607,7 +606,6 @@ function removeAll(){
     placeList();
     document.querySelector("#listRemoveAlert").classList.toggle("hidden");
     document.querySelector("#categoryPending").click();
-    
 }
 
 
