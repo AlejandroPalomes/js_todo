@@ -76,24 +76,16 @@ function clickListener(event) {
 function hoverListener(event) {
     if(event.target != document.querySelector("body")){
         if (event.target.parentNode.classList.contains("important-hover")) {
-            var buttonImportant = event.target.parentNode.querySelector(".importantCheckMark");
-            var buttonDelete = event.target.parentNode.querySelector(".deleteTask");
-            var description = event.target.parentNode.querySelector(".descriptionBox");
-            var time = event.target.parentNode.querySelector(".timeCheckBox");
-            buttonImportant.classList.toggle("hidden");
-            buttonDelete.classList.toggle("hidden");
-            description.classList.toggle("hidden");
-            time.classList.toggle("hidden");
+            event.target.parentNode.querySelector(".importantCheckMark").classList.toggle("hidden");
+            event.target.parentNode.querySelector(".deleteTask").classList.toggle("hidden");
+            event.target.parentNode.querySelector(".descriptionBox").classList.toggle("hidden");
+            event.target.parentNode.querySelector(".timeCheckBox").classList.toggle("hidden");
             checkTime(event.target.parentNode);
         } else if (event.target.parentNode.parentNode.classList.contains("important-hover")) {
-            var buttonImportant = event.target.parentNode.parentNode.querySelector(".importantCheckMark");
-            var buttonDelete = event.target.parentNode.parentNode.querySelector(".deleteTask");
-            var description = event.target.parentNode.parentNode.querySelector(".descriptionBox");
-            var time = event.target.parentNode.parentNode.querySelector(".timeCheckBox");
-            buttonImportant.classList.toggle("hidden");
-            buttonDelete.classList.toggle("hidden");
-            description.classList.toggle("hidden");
-            time.classList.toggle("hidden");
+            event.target.parentNode.parentNode.querySelector(".importantCheckMark").classList.toggle("hidden");
+            event.target.parentNode.parentNode.querySelector(".deleteTask").classList.toggle("hidden");
+            event.target.parentNode.parentNode.querySelector(".descriptionBox").classList.toggle("hidden");
+            event.target.parentNode.parentNode.querySelector(".timeCheckBox").classList.toggle("hidden");
             checkTime(event.target.parentNode.parentNode);
         };
 
