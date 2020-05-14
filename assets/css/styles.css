@@ -314,7 +314,7 @@ outline: none;
     color: rgb(180, 180, 180);
 }
 
-.descriptionBox span:first-child{
+.descriptionBox span:first-child, .descriptionBox span:nth-child(2){
     font-weight: 600;
 }
 
