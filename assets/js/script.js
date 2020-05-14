@@ -187,9 +187,9 @@ function generateTask(from) {
     var color = document.querySelector("#taskColor").value;
     var startTime = new Date;
     var tasksNames = []
-    taskNames = tasks.filter(task => task.title == title);
-
-    if (title && description && title.length > 2 && title.length < 51 && description.length < 501 && !tasksNames[0].title == title) {
+    tasksNames = tasks.filter(task => task.title == title);
+    if (tasksNames.length == 0) tasksNames = null;
+    if (title && description && title.length > 2 && title.length < 51 && description.length < 501 && !tasksNames) {
         var newTask = new Task(title, description, completedCheck, importantCheck, customList, color, startTime);
 
         
@@ -607,6 +607,7 @@ function removeList(element) {
 
         storeList();
         placeList();
+        document.querySelector("#categoryPending").click();
     }
 }
 

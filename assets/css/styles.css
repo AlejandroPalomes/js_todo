@@ -94,6 +94,7 @@
 
 body{
     height: 100vh;
+    background: rgb(52, 52, 61);
 }
 
 .todoList-container{
@@ -110,7 +111,7 @@ header{
 
 .dateSector{
     height: 75%;
-    width: 16%;
+    width: 140px;
     font-size: 25px;
     justify-content: space-between;
     align-items:center;
