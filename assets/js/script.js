@@ -153,10 +153,12 @@ function checkTime(element){
         if(task.title == element.querySelector(".taskLabel").textContent){
             var hours;
             var minutes;
-            ((task.ellapsedTime/60)/60)<1 ? hours = "00" : hours = ((task.ellapsedTime/60)/60);
-            (task.ellapsedTime/60)<1 ? minutes = "00" : minutes = (task.ellapsedTime/60);
-            (task.ellapsedTime/60)<1 ? minutes = "00" : minutes = (task.ellapsedTime/60);
-            (task.ellapsedTime/60)>60 ? minutes = (task.ellapsedTime/60)-(60*Math.floor((task.ellapsedTime/60)/60)) : minutes = (task.ellapsedTime/60);
+            var time = task.ellapsedTime;
+
+            ((time/60)/60)<1 ? hours = "00" : hours = ((time/60)/60);
+            (time/60)<1 ? minutes = "00" : minutes = (time/60);
+            (time/60)<1 ? minutes = "00" : minutes = (time/60);
+            (time/60)>60 ? minutes = (time/60)-(60*Math.floor((time/60)/60)) : minutes = (time/60);
             element.querySelector(".descriptionBox > span:nth-child(2)").textContent = ("Time elapsed: " + Math.floor(hours) + "h "+ Math.floor(minutes) +"min");
         };
     });
@@ -241,7 +243,7 @@ function placeTask(searchValue) {
             var tasksDisplay = tasks.filter(task => task.completed == true);
             sectionTitle.textContent = "Completed";
         }else if(pendingInput.checked){
-            var tasksDisplay = tasks.filter(task => task.completed == false);
+            var tasksDisplay = tasks.filter(task => task.completed == false && task.customList == "Select a custom list");
             sectionTitle.textContent = "Pending";
         }else{
             var tasksDisplay = tasks.filter(task => (task.customList == activeList && task.completed == false));
