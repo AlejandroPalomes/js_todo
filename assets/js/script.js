@@ -197,8 +197,6 @@ function generateTask(from) {
     var tasksNames = []
     taskNames = tasks.filter(task => task.title == title);
 
-    console.log(tasksNames)
-
     if (title && description && title.length > 2 && title.length < 51 && description.length < 501 && !tasksNames[0].title == title) {
         var newTask = new Task(title, description, completedCheck, importantCheck, customList, color, startTime);
 
@@ -501,12 +499,15 @@ function changeCategory(category) {
 
 function saveList(list) {
     var newList = (list.parentNode.parentNode.querySelector("input").value);
-    userLists.push(newList);
 
-    storeList();
-    selectUserLists();
-    placeList();
-    listModalPopDown();
+    if(!userLists.includes(newList)){
+        userLists.push(newList);
+    
+        storeList();
+        selectUserLists();
+        placeList();
+        listModalPopDown();
+    }
 };
 
 function listModalPopUp() {
