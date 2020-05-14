@@ -210,6 +210,10 @@ outline: none;
     font-weight: 800;
 }
 
+.category-container:hover{
+    opacity: 0.8;
+}
+
 .userLists__general{
     height: 265px;
     overflow-y: scroll;
@@ -223,6 +227,10 @@ outline: none;
     margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
+}
+
+.userLists:hover{
+    opacity: 0.8;
 }
 
 .todoList-general__custom-lists-title{
