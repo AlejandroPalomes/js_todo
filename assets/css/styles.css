@@ -210,6 +210,15 @@ outline: none;
     font-weight: 800;
 }
 
+.userLists__general{
+    height: 265px;
+    overflow-y: scroll;
+}
+
+.userLists__general::-webkit-scrollbar {
+    display: none;
+}
+
 .userLists{
     margin-bottom: 8px;
     display: flex;
