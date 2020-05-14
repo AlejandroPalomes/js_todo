@@ -194,10 +194,15 @@ function generateTask(from) {
     var customList = document.querySelector("#customList").value;
     var color = document.querySelector("#taskColor").value;
     var startTime = new Date;
+    var tasksNames = []
+    taskNames = tasks.filter(task => task.title == title);
 
-    if (title && description && title.length > 2 && title.length < 51 && description.length < 501) {
+    console.log(tasksNames)
+
+    if (title && description && title.length > 2 && title.length < 51 && description.length < 501 && !tasksNames[0].title == title) {
         var newTask = new Task(title, description, completedCheck, importantCheck, customList, color, startTime);
 
+        
         tasks.push(newTask);
 
         storeTasks();
