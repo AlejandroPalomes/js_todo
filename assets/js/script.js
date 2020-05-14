@@ -248,7 +248,11 @@ function placeTask(searchValue) {
             sectionTitle.textContent = "List: " + activeList;
         };
     }else{
-        var tasksDisplay = tasks.filter(task => task.title.toLowerCase().includes(searchValue.toLowerCase()));
+        if(searchValue.toLowerCase() != "active"){
+            var tasksDisplay = tasks.filter(task => task.title.toLowerCase().includes(searchValue.toLowerCase()));
+        }else{
+            var tasksDisplay = tasks.filter(task => task.timeControl == true);
+        }
         sectionTitle.textContent = "Search: " + searchValue;
     };
 
